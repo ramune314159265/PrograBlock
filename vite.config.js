@@ -23,8 +23,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       manifest: {
-        name: 'ReactAppTemplate',
-        description: 'template',
+        name: 'PrograBlock',
+        description: 'コード(JavaScript)とブロックを変換しながらプログラミングが出来るツール',
         theme_color: '#fff',
         display: 'standalone',
         display_override: ['window-controls-overlay'],
@@ -47,11 +47,11 @@ export default defineConfig({
     }),
     viteOgp({
       basic: {
-        title: 'ReactAppTemplate',
+        title: 'PrograBlock',
         type: 'website',
-        image: 'https://ramune314159265.github.io/ReactAppTemplate/icons/128.png',
-        description: 'template',
-        url: 'https://ramune314159265.github.io/ReactAppTemplate/',
+        image: 'https://ramune314159265.github.io/PrograBlock/icons/128.png',
+        description: 'コード(JavaScript)とブロックを変換しながらプログラミングが出来るツール',
+        url: 'https://ramune314159265.github.io/PrograBlock/',
         locale: 'ja_JP'
       }
     })
