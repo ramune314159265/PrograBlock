@@ -5,6 +5,7 @@ export const ExpressionBox = ({ children, colorPlatte, blockState }) => {
 		<HStack
 			height="full"
 			alignItems="center"
+			justifyContent="center"
 			background={`${colorPlatte}.solid`}
 			padding={0.5}
 			cursor="grab"

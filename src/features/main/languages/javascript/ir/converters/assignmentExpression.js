@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { convertAstToIr, convertIrToAst } from "..";
 
 export const assignmentExpressionConverter = {
@@ -7,6 +8,7 @@ export const assignmentExpressionConverter = {
 				type: "assignment_expression",
 				left: convertAstToIr(node.left),
 				right: convertAstToIr(node.right),
+				id: node.id ?? nanoid()
 			};
 		},
 	},
@@ -16,6 +18,7 @@ export const assignmentExpressionConverter = {
 				type: "AssignmentExpression",
 				left: convertIrToAst(node.right),
 				right: convertIrToAst(node.left),
+				id: node.id ?? null
 			};
 		},
 	},

@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { convertAstToIr, convertIrToAst } from "..";
 
 export const ifStatementConverter = {
@@ -8,6 +9,7 @@ export const ifStatementConverter = {
 				condition: convertAstToIr(node.test),
 				content: node.consequent.body.map(convertAstToIr),
 				alternative: node.alternate?.body?.map?.(convertAstToIr),
+				id: node.id ?? nanoid()
 			};
 		},
 	},
@@ -24,6 +26,7 @@ export const ifStatementConverter = {
 					type: "BlockStatement",
 					body: node.alternative?.map(convertIrToAst),
 				},
+				id: node.id ?? null
 			};
 		},
 	},

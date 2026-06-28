@@ -130,7 +130,7 @@ export const Expression = ({ path }) => {
 	const node = getFromPath(nodeRoot, path);
 	const n = nodeTypes[node?.type];
 	const { ref: draggableRef, isDragging } = useDraggable({
-		disabled: !n.component,
+		disabled: !n?.component,
 		id: path.join("."),
 		data: {
 			path,

@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { convertAstToIr, convertIrToAst } from "..";
 
 export const memberExpressionConverter = {
@@ -7,6 +8,7 @@ export const memberExpressionConverter = {
 				type: "member_expression",
 				object: convertAstToIr(node.object),
 				property: node.property.name,
+				id: node.id ?? nanoid()
 			};
 		},
 	},
@@ -19,6 +21,7 @@ export const memberExpressionConverter = {
 					type: "Identifier",
 					name: node.name,
 				},
+				id: node.id ?? null
 			};
 		},
 	},

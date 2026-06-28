@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { convertAstToIr, convertIrToAst } from "..";
 
 export const blockStatementConverter = {
@@ -6,6 +7,7 @@ export const blockStatementConverter = {
 			return {
 				type: "block_statement",
 				content: convertAstToIr(node.body),
+				id: node.id ?? nanoid()
 			};
 		},
 	},
@@ -14,6 +16,7 @@ export const blockStatementConverter = {
 			return {
 				type: "BlockStatement",
 				body: convertIrToAst(node.content),
+				id: node.id ?? null
 			};
 		},
 	},

@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { convertAstToIr, convertIrToAst } from "..";
 
 const types = {
@@ -27,6 +28,7 @@ export const binaryExpressionConverter = {
 				type: type,
 				left: convertAstToIr(node.left),
 				right: convertAstToIr(node.right),
+				id: node.id ?? nanoid()
 			};
 		},
 	},
@@ -39,6 +41,7 @@ export const binaryExpressionConverter = {
 					operator: k,
 					left: convertIrToAst(node.left),
 					right: convertIrToAst(node.right),
+					id: node.id ?? null
 				};
 			},
 		]),

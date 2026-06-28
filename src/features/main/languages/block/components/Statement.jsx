@@ -1,5 +1,5 @@
-import { useDraggable, useDroppable } from "@dnd-kit/react";
-import { pointerIntersection } from "@dnd-kit/collision";
+import { Box } from "@chakra-ui/react";
+import { useDraggable } from "@dnd-kit/react";
 import { useContext } from "react";
 import { getFromPath } from "../../../util/getFromPath";
 import { IrContext } from "./Context";
@@ -12,7 +12,7 @@ import { ReturnStatement } from "./statements/Return";
 import { SwitchStatement } from "./statements/Switch";
 import { SwitchCase } from "./statements/SwitchCase";
 import { VariableDeclaration } from "./statements/VariableDeclaration";
-import { Box } from "@chakra-ui/react";
+import { StatementDropZone } from './templates/StatementDropZone';
 
 const nodeTypes = {
 	program: {
@@ -53,29 +53,20 @@ export const Statement = ({ path }) => {
 		id: path.join("."),
 		data: {
 			path,
-			type: "expression",
-		},
-	});
-	const { ref: droppableRef } = useDroppable({
-		id: path.join("."),
-		collisionDetector: pointerIntersection,
-		collisionPriority: path.length,
-		data: {
-			path,
-			type: "expression",
+			type: "statement",
 		},
 	});
 	const blockState = isDragging ? "dragging" : "";
 
 	return (
 		<Box
-			ref={(ref) => {
-				draggableRef(ref);
-				droppableRef(ref);
-			}}
+			ref={draggableRef}
 		>
 			{n?.component ? (
-				<n.component path={[...path]}></n.component>
+				<Box position="relative">
+					<n.component path={[...path]}></n.component>
+					<StatementDropZone path={[...path]}></StatementDropZone>
+				</Box>
 			) : (
 				<></>
 			)}

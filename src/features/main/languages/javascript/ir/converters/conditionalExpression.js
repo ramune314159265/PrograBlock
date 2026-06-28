@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { convertAstToIr, convertIrToAst } from "..";
 
 export const conditionalExpressionConverter = {
@@ -8,6 +9,7 @@ export const conditionalExpressionConverter = {
 				condition: convertAstToIr(node.test),
 				content: convertAstToIr(node.consequent),
 				alternative: convertAstToIr(node.alternate),
+				id: node.id ?? nanoid()
 			};
 		},
 	},
@@ -18,6 +20,7 @@ export const conditionalExpressionConverter = {
 				test: convertIrToAst(node.condition),
 				consequent: convertIrToAst(node.content),
 				alternate: convertIrToAst(node.alternative),
+				id: node.id ?? null
 			};
 		},
 	},

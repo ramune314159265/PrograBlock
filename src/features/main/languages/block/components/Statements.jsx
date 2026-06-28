@@ -1,7 +1,8 @@
-import { VStack } from "@chakra-ui/react";
-import { Fragment, useContext } from "react";
+import { Box, VStack } from "@chakra-ui/react";
+import { useContext } from "react";
 import { getFromPath } from "../../../util/getFromPath";
 import { IrContext } from "./Context";
+import { Statement } from "./Statement";
 import { BreakStatement } from "./statements/Break";
 import { ExpressionStatement } from "./statements/Expression";
 import { FunctionDeclaration } from "./statements/FunctionDeclaration";
@@ -11,7 +12,7 @@ import { ReturnStatement } from "./statements/Return";
 import { SwitchStatement } from "./statements/Switch";
 import { SwitchCase } from "./statements/SwitchCase";
 import { VariableDeclaration } from "./statements/VariableDeclaration";
-import { Statement } from "./Statement";
+import { StatementDropZone } from './templates/StatementDropZone';
 
 const nodeTypes = {
 	program: {
@@ -52,6 +53,9 @@ export const Statements = ({ path, blockState }) => {
 
 	return (
 		<VStack alignItems="flex-start">
+			<Box position="relative" width={64}>
+				<StatementDropZone path={[...path, -1]}></StatementDropZone>
+			</Box>
 			{node.map((c, i) => (
 				<Statement key={i} path={[...path, i]}></Statement>
 			))}
