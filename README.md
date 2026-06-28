@@ -1,12 +1,3 @@
-# React App Template
+# PrograBlock
 
-React のアプリのテンプレート
-
-## 変更するところ
-
-- `./vite.config.js`
-- `./package.json`
-- `./index.html`
-- `./README.md`
-- `./public/icons/`
-- `./src/data/appInfo.js`
+コード(JavaScript)とブロックを変換しながらプログラミングが出来るツール
