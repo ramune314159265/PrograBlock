@@ -1,9 +1,9 @@
 import { Editor } from "@monaco-editor/react";
 import { useEffect, useRef } from "react";
 import * as recast from "recast";
-import { deepDiff } from '../../../util/deepDiff';
+import { deepDiff } from "../../../util/deepDiff";
 import { getFromPath } from "../../../util/getFromPath";
-import { moveByPath } from '../../../util/moveObject';
+import { moveByPath } from "../../../util/moveObject";
 import { convertIrToAstTree, convertJavaScriptToIr } from "../ir";
 
 export const JavaScript = ({ ir, setIr }) => {
@@ -35,44 +35,57 @@ export const JavaScript = ({ ir, setIr }) => {
 		const recastAst = recast.parse(editorContent);
 		diff.forEach((d) => {
 			switch (d.type) {
-				case 'CREATE': {
-					const path = d.path.slice(0, -1)
-					const property = d.path.at(-1)
-					const target = getFromPath(recastAst.program.body, path)
+				case "CREATE": {
+					const path = d.path.slice(0, -1);
+					const property = d.path.at(-1);
+					const target = getFromPath(recastAst.program.body, path);
 
 					if (Array.isArray(target)) {
-						target.splice(property, 0, d.value)
+						target.splice(property, 0, d.value);
 					} else {
-						target[property] = d.value
+						target[property] = d.value;
 					}
-					break
+					break;
 				}
 
-				case 'CHANGE': {
-					const path = d.path.slice(0, -1)
-					const property = d.path.at(-1)
-					const target = getFromPath(recastAst.program.body, path)
+				case "CHANGE": {
+					const path = d.path.slice(0, -1);
+					const property = d.path.at(-1);
+					const target = getFromPath(recastAst.program.body, path);
 
-					target[property] = d.value
-					break
+					target[property] = d.value;
+					break;
 				}
 
-				case 'REMOVE': {
-					const path = d.path.slice(0, -1)
-					const property = d.path.at(-1)
-					const target = getFromPath(recastAst.program.body, path)
+				case "REMOVE": {
+					const path = d.path.slice(0, -1);
+					const property = d.path.at(-1);
+					const target = getFromPath(recastAst.program.body, path);
 
 					if (Array.isArray(target)) {
-						target.splice(property, 1)
+						target.splice(property, 1);
 					} else {
-						delete target[property]
+						delete target[property];
 					}
-					break
+					break;
 				}
 
-				case 'MOVE': {
-					moveByPath(recastAst.program.body, d.oldPath, d.path)
-					break
+				case "MOVE": {
+					const fromPath = d.oldPath.slice(0, -1);
+					const fromProperty = d.oldPath.at(-1);
+					const toPath = d.path.slice(0, -1);
+					const toProperty = d.path.at(-1);
+
+					const moveFrom = getFromPath(
+						recastAst.program.body,
+						fromPath,
+					);
+					const moveData = moveFrom[fromProperty];
+					moveFrom.splice(fromProperty, 1);
+					const moveTo = getFromPath(recastAst.program.body, toPath);
+					moveTo.splice(toProperty, 0, moveData);
+
+					break;
 				}
 			}
 		});

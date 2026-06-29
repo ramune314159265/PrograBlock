@@ -1,4 +1,4 @@
-import { Feedback } from '@dnd-kit/dom';
+import { Feedback } from "@dnd-kit/dom";
 import { DragDropProvider } from "@dnd-kit/react";
 import { getFromPath } from "../../../util/getFromPath";
 import { IrContext } from "./Context";
@@ -28,8 +28,11 @@ export const Block = ({ ir, setIr }) => {
 				const toPath = to.slice(0, -1);
 				const toProperty = to.at(-1);
 				const toType = e.operation.target?.data?.type;
-				if (e.operation.source?.data?.type === 'statement' && e.operation.target?.data?.type === 'expression') {
-					return
+				if (
+					e.operation.source?.data?.type === "statement" &&
+					e.operation.target?.data?.type === "expression"
+				) {
+					return;
 				}
 
 				console.log({
@@ -44,32 +47,35 @@ export const Block = ({ ir, setIr }) => {
 				const copyFrom = getFromPath(copy, fromPath);
 				const copyTo = getFromPath(copy, toPath);
 				switch (true) {
-					case (fromType === 'statement' && toType === 'statement'): {
-						const node = copyFrom[fromProperty]
-						copyFrom.splice(fromProperty, 1)
-
-						let insertIndex = toProperty
-						if (copyFrom === copyTo && fromProperty < toProperty) {
-							insertIndex--
-						}
-						copyTo.splice(insertIndex + 1, 0, node)
-
-						setIr(copy)
-						break
+					case fromType === "statement" && toType === "statement": {
+						const fromId = copyFrom[fromProperty].id;
+						copyTo.splice(
+							toProperty + 1,
+							0,
+							copyFrom[fromProperty],
+						);
+						const fromIndex = copyFrom.findIndex(
+							(e) => e.id === fromId,
+						);
+						copyFrom.splice(fromIndex, 1);
+						console.log(copy);
+						setIr(copy);
+						break;
 					}
-					case (fromType === 'statement' && toType === 'expression'):
-						break
-					case (fromType === 'expression' && toType === 'statement'): {
-
+					case fromType === "statement" && toType === "expression":
+						break;
+					case fromType === "expression" && toType === "statement": {
 					}
-					case (fromType === 'expression' && toType === 'expression'): {
+					case fromType === "expression" && toType === "expression": {
 						copyTo[toProperty] = copyFrom[fromProperty];
-						const fromData = structuredClone(copyFrom[fromProperty]);
+						const fromData = structuredClone(
+							copyFrom[fromProperty],
+						);
 						copyFrom[fromProperty] = {
 							type: "empty",
 							placeholder: fromData,
 						};
-						console.log(copy)
+						console.log(copy);
 						setIr(copy);
 					}
 				}
