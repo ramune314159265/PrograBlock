@@ -9,7 +9,7 @@ export const variableDeclarationConverter = {
 				variableType: node.kind,
 				name: node.declarations[0].id.name,
 				value: convertAstToIr(node.declarations[0].init),
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -28,7 +28,7 @@ export const variableDeclarationConverter = {
 						init: convertIrToAst(node.value),
 					},
 				],
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

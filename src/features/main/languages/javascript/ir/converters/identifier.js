@@ -6,13 +6,13 @@ export const identifierConverter = {
 			if (node.name === "undefined") {
 				return {
 					type: "undefined",
-					id: node.id ?? nanoid()
+					uid: node?.uid ?? nanoid()
 				};
 			}
 			return {
 				type: "identifier",
 				name: node.name,
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -21,14 +21,14 @@ export const identifierConverter = {
 			return {
 				type: "Identifier",
 				name: node.name,
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 		undefined: (node) => {
 			return {
 				type: "Identifier",
 				name: "undefined",
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

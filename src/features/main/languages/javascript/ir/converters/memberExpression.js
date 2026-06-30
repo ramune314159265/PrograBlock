@@ -8,7 +8,7 @@ export const memberExpressionConverter = {
 				type: "member_expression",
 				object: convertAstToIr(node.object),
 				property: node.property.name,
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -21,7 +21,7 @@ export const memberExpressionConverter = {
 					type: "Identifier",
 					name: node.name,
 				},
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

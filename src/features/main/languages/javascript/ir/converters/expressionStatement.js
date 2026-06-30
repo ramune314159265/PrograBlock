@@ -7,7 +7,7 @@ export const expressionStatementConverter = {
 			return {
 				type: "expression_statement",
 				content: convertAstToIr(node.expression),
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -16,7 +16,7 @@ export const expressionStatementConverter = {
 			return {
 				type: "ExpressionStatement",
 				expression: convertIrToAst(node.content),
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

@@ -5,6 +5,7 @@ import { blockStatementConverter } from "./converters/blockStatement";
 import { breakStatementConverter } from "./converters/breakStatement";
 import { callExpressionConverter } from "./converters/callExpression";
 import { conditionalExpressionConverter } from "./converters/conditionalExpression";
+import { emptyConverter } from "./converters/empty";
 import { expressionStatementConverter } from "./converters/expressionStatement";
 import { functionDeclarationConverter } from "./converters/functionDeclaration";
 import { identifierConverter } from "./converters/identifier";
@@ -18,7 +19,6 @@ import { switchCaseConverter } from "./converters/switchCase";
 import { switchStatementConverter } from "./converters/switchStatement";
 import { unaryExpressionConverter } from "./converters/unaryExpression";
 import { variableDeclarationConverter } from "./converters/variableDeclaration";
-import { emptyConverter } from "./converters/empty";
 
 const converters = [
 	assignmentExpressionConverter,
@@ -65,7 +65,6 @@ export const convertJavaScriptToIr = (code) => {
 		ecmaVersion: 2020,
 		sourceType: "script",
 	});
-	console.log(ast);
 	return convertAstToIr(ast);
 };
 

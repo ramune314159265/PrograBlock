@@ -28,7 +28,7 @@ export const binaryExpressionConverter = {
 				type: type,
 				left: convertAstToIr(node.left),
 				right: convertAstToIr(node.right),
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -41,7 +41,7 @@ export const binaryExpressionConverter = {
 					operator: k,
 					left: convertIrToAst(node.left),
 					right: convertIrToAst(node.right),
-					id: node.id ?? null
+					uid: node?.uid ?? null
 				};
 			},
 		]),

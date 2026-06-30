@@ -7,18 +7,18 @@ export const LiteralConverter = {
 				case true:
 					return {
 						type: "true",
-						id: node.id ?? nanoid()
+						uid: node?.uid ?? nanoid()
 					};
 				case false:
 					return {
 						type: "false",
-						id: node.id ?? nanoid()
+						uid: node?.uid ?? nanoid()
 					};
 				default:
 					return {
 						type: typeof node.value,
 						content: node.value,
-						id: node.id ?? nanoid()
+						uid: node?.uid ?? nanoid()
 					};
 			}
 		},
@@ -28,28 +28,28 @@ export const LiteralConverter = {
 			return {
 				type: "Literal",
 				value: node.content,
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 		string: (node) => {
 			return {
 				type: "Literal",
 				value: node.content,
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 		true: (node) => {
 			return {
 				type: "Literal",
 				value: true,
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 		false: (node) => {
 			return {
 				type: "Literal",
 				value: false,
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

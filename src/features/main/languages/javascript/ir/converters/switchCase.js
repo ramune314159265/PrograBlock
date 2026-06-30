@@ -8,7 +8,7 @@ export const switchCaseConverter = {
 				type: "switch_case",
 				condition: convertAstToIr(node.test),
 				content: node.consequent.map(convertAstToIr),
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -18,7 +18,7 @@ export const switchCaseConverter = {
 				type: "SwitchCase",
 				test: convertIrToAst(node.condition),
 				consequent: node.content.map(convertIrToAst),
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

@@ -8,7 +8,7 @@ export const callExpressionConverter = {
 				type: "call_expression",
 				function: convertAstToIr(node.callee),
 				arguments: node.arguments.map(convertAstToIr),
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -18,7 +18,7 @@ export const callExpressionConverter = {
 				type: "CallExpression",
 				callee: convertIrToAst(node.function),
 				arguments: node.arguments.map(convertIrToAst),
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

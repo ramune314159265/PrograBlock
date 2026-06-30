@@ -5,7 +5,7 @@ export const breakStatementConverter = {
 		BreakStatement: (node) => {
 			return {
 				type: "break_statement",
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -13,7 +13,7 @@ export const breakStatementConverter = {
 		break_statement: (node) => {
 			return {
 				type: "BreakStatement",
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

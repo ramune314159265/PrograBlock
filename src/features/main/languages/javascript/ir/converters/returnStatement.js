@@ -7,7 +7,7 @@ export const returnStatementConverter = {
 			return {
 				type: "return_statement",
 				content: convertAstToIr(node.argument),
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -16,7 +16,7 @@ export const returnStatementConverter = {
 			return {
 				type: "ReturnStatement",
 				argument: convertIrToAst(node.content),
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

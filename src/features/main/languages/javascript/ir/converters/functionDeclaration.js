@@ -6,10 +6,10 @@ export const functionDeclarationConverter = {
 		FunctionDeclaration: (node) => {
 			return {
 				type: "function_declaration",
-				name: node.id.name,
+				name: node?.id.name,
 				parameters: node.params.map((p) => p.name),
 				content: node.body.body.map(convertAstToIr),
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -31,7 +31,7 @@ export const functionDeclarationConverter = {
 					type: "BlockStatement",
 					body: node.content.map(convertIrToAst),
 				},
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

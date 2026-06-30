@@ -8,7 +8,7 @@ export const unaryExpressionConverter = {
 				type: "unary_expression",
 				operator: node.operator,
 				content: convertAstToIr(node.argument),
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -18,7 +18,7 @@ export const unaryExpressionConverter = {
 				type: "UnaryExpression",
 				operator: node.operator,
 				argument: convertIrToAst(node.content),
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

@@ -8,7 +8,7 @@ export const switchStatementConverter = {
 				type: "switch_statement",
 				discriminant: convertAstToIr(node.discriminant),
 				cases: node.cases.map(convertAstToIr),
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -18,7 +18,7 @@ export const switchStatementConverter = {
 				type: "SwitchStatement",
 				discriminant: convertIrToAst(node.discriminant),
 				cases: node.cases.map(convertIrToAst),
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

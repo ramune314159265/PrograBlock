@@ -7,9 +7,9 @@ export const ifStatementConverter = {
 			return {
 				type: "if_statement",
 				condition: convertAstToIr(node.test),
-				content: node.consequent.body.map(convertAstToIr),
+				content: node.consequent.body?.map(convertAstToIr),
 				alternative: node.alternate?.body?.map?.(convertAstToIr),
-				id: node.id ?? nanoid()
+				uid: node?.uid ?? nanoid()
 			};
 		},
 	},
@@ -20,13 +20,13 @@ export const ifStatementConverter = {
 				test: convertIrToAst(node.condition),
 				consequent: {
 					type: "BlockStatement",
-					body: node.content.map(convertIrToAst),
+					body: node.content?.map(convertIrToAst),
 				},
 				alternate: {
 					type: "BlockStatement",
 					body: node.alternative?.map(convertIrToAst),
 				},
-				id: node.id ?? null
+				uid: node?.uid ?? null
 			};
 		},
 	},

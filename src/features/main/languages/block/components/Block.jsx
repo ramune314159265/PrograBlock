@@ -58,7 +58,6 @@ export const Block = ({ ir, setIr }) => {
 							(e) => e.id === fromId,
 						);
 						copyFrom.splice(fromIndex, 1);
-						console.log(copy);
 						setIr(copy);
 						break;
 					}
@@ -75,7 +74,6 @@ export const Block = ({ ir, setIr }) => {
 							type: "empty",
 							placeholder: fromData,
 						};
-						console.log(copy);
 						setIr(copy);
 					}
 				}
