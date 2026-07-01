@@ -17,6 +17,7 @@
     "@monaco-editor/react": "^4.7.0",
     "@vitejs/plugin-react": "^6.0.1",
     "acorn-loose": "^8.5.2",
+    "blockly": "^13.1.0",
     "fuse.js": "^7.3.0",
     "jotai": "^2.20.1",
     "jotai-family": "^1.0.2",
