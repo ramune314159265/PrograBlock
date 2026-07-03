@@ -85,7 +85,7 @@ Blockly.common.defineBlocksWithJsonArray([
 		type: "equal_expression",
 		tooltip: "2つの値が等しいか判定します",
 		helpUrl: "",
-		message0: "%1 %2 %3 %4",
+		message0: "%1 と %3 が %2 %4",
 		args0: [
 			{
 				type: "input_value",
@@ -95,8 +95,8 @@ Blockly.common.defineBlocksWithJsonArray([
 				type: "field_dropdown",
 				name: "type",
 				options: [
-					["と同じ", "equal"],
-					["が異なる", "not_equal"],
+					["同じ", "equal"],
+					["異なる", "not_equal"],
 				],
 			},
 			{
@@ -195,7 +195,7 @@ Blockly.common.defineBlocksWithJsonArray([
 		type: "call_expression",
 		tooltip: "",
 		helpUrl: "",
-		message0: "関数 %1 を実行する %2",
+		message0: "関数 %1 の実行(結果) %2",
 		args0: [
 			{
 				type: "input_value",
@@ -274,6 +274,8 @@ Blockly.common.defineBlocksWithJsonArray([
 				name: "content",
 			},
 		],
+		previousStatement: null,
+		nextStatement: null,
 		colour: 225,
 	},
 	{
@@ -295,6 +297,138 @@ Blockly.common.defineBlocksWithJsonArray([
 		output: null,
 		colour: 225,
 	},
+	{
+		"type": "number",
+		"tooltip": "number",
+		"helpUrl": "",
+		"message0": "数値 %1 %2",
+		"args0": [
+			{
+				"type": "field_number",
+				"name": "content",
+				"value": 0
+			},
+			{
+				"type": "input_dummy",
+				"name": "d1"
+			}
+		],
+		"output": null,
+		"colour": 225
+	},
+	{
+		"type": "string",
+		"tooltip": "string",
+		"helpUrl": "",
+		"message0": "文字列 %1 %2",
+		"args0": [
+			{
+				"type": "field_input",
+				"name": "content",
+				"text": ""
+			},
+			{
+				"type": "input_dummy",
+				"name": "d1"
+			}
+		],
+		"output": null,
+		"colour": 225
+	},
+	{
+		"type": "true",
+		"tooltip": "true",
+		"helpUrl": "",
+		"message0": "真 %1",
+		"args0": [
+			{
+				"type": "input_dummy",
+				"name": "d1"
+			}
+		],
+		"output": null,
+		"colour": 225
+	},
+	{
+		"type": "false",
+		"tooltip": "false",
+		"helpUrl": "",
+		"message0": "偽 %1",
+		"args0": [
+			{
+				"type": "input_dummy",
+				"name": "d1"
+			}
+		],
+		"output": null,
+		"colour": 225
+	},
+	{
+		"type": "return_statement",
+		"tooltip": "値を指定した場合は値を返し、現在の関数を終了します",
+		"helpUrl": "",
+		"message0": "値 %1 を返し、関数を終了する %2",
+		"args0": [
+			{
+				"type": "input_value",
+				"name": "content"
+			},
+			{
+				"type": "input_end_row",
+				"name": "d1"
+			}
+		],
+		"previousStatement": null,
+		"nextStatement": null,
+		"colour": 225
+	},
+	{
+		"type": "switch_statement",
+		"tooltip": "値がそれぞれの場合に当てはまるかどうかで分岐します",
+		"helpUrl": "",
+		"message0": "%1 が %2 %3",
+		"args0": [
+			{
+				"type": "input_value",
+				"name": "discriminant"
+			},
+			{
+				"type": "input_dummy",
+				"name": "d1"
+			},
+			{
+				"type": "input_statement",
+				"name": "NAME",
+				"check": "switch_case"
+			}
+		],
+		"previousStatement": null,
+		"nextStatement": null,
+		"colour": 225
+	},
+	{
+		"type": "switch_case",
+		"tooltip": "",
+		"helpUrl": "",
+		"message0": "%1 の場合 %2 %3",
+		"args0": [
+			{
+				"type": "input_value",
+				"name": "condition"
+			},
+			{
+				"type": "input_dummy",
+				"name": "d1"
+			},
+			{
+				"type": "input_statement",
+				"name": "content"
+			}
+		],
+		"previousStatement": null,
+		"nextStatement": "switch_case",
+		"colour": 225
+	}
 ]);
 
 const toolbox = {
@@ -315,6 +449,10 @@ const toolbox = {
 		{
 			kind: "block",
 			type: "comparison_expression",
+		},
+		{
+			kind: "block",
+			type: "equal_expression",
 		},
 		{
 			kind: "block",
@@ -343,6 +481,34 @@ const toolbox = {
 		{
 			kind: "block",
 			type: "identifier",
+		},
+		{
+			kind: "block",
+			type: "number",
+		},
+		{
+			kind: "block",
+			type: "string",
+		},
+		{
+			kind: "block",
+			type: "true",
+		},
+		{
+			kind: "block",
+			type: "false",
+		},
+		{
+			kind: "block",
+			type: "return_statement",
+		},
+		{
+			kind: "block",
+			type: "switch_case",
+		},
+		{
+			kind: "block",
+			type: "switch_statement",
 		},
 	],
 };
