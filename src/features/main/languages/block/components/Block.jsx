@@ -63,7 +63,7 @@ Blockly.common.defineBlocksWithJsonArray([
 		type: "assignment_expression",
 		tooltip: "変数に値を代入します (代入後の値を返す)",
 		helpUrl: "",
-		message0: "変数 %1 に %2 を代入する %3",
+		message0: "%1 に %2 を代入する %3",
 		args0: [
 			{
 				type: "input_value",
@@ -536,8 +536,8 @@ export const Block = ({ ir, setIr }) => {
 			renderer: "Zelos",
 		});
 
-		workspace.addChangeListener(() => {
-			// if (event.isUiEvent) return
+		workspace.addChangeListener(e => {
+			if (e.isUiEvent) return
 			const json = Blockly.serialization.workspaces.save(workspace);
 			console.log(json);
 		});
