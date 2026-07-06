@@ -1,4 +1,4 @@
-import { objectChainToArray } from '../../../util/objectArray';
+import { arrayToObjectChain, objectChainToArray } from '../../../util/objectArray';
 import { assignmentExpressionConverter } from './converters/assignmentExpression';
 
 const converters = [
@@ -25,6 +25,11 @@ export const convertBlockToIr = (node) => {
 export const convertBlockChainToIr = (node) => {
 	const array = objectChainToArray(node)
 	return array.map(convertBlockToIr)
+}
+
+export const convertIrToBlockChain = (node) => {
+	const arrayConverted = node.map(convertIrToBlock)
+	return arrayToObjectChain(arrayConverted)
 }
 
 export const convertIrToBlock = (node) => {

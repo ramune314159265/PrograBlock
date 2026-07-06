@@ -23,7 +23,7 @@ export const conditionalExpressionConverter = {
 						block: convertIrToBlock(node.condition),
 					},
 					content: {
-						block: convertIrToBlock(node.cotent),
+						block: convertIrToBlock(node.content),
 					},
 					alternative: {
 						block: convertIrToBlock(node.alternative),
