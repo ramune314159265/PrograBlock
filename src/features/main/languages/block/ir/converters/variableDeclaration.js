@@ -1,21 +1,22 @@
 import { nanoid } from "nanoid";
 import { convertBlockToIr, convertIrToBlock } from "..";
 
-export const assignmentExpressionConverter = {
+export const variableDeclarationConverter = {
 	toIrs: {
-		assignment_expression: (node) => {
+		variable_declaration: (node) => {
 			return {
-				type: "assignment_expression",
-				left: convertBlockToIr(node.inputs?.left?.block),
-				right: convertBlockToIr(node.inputs?.right?.block),
+				type: "variable_declaration",
+				variableType: node.inputs.variableType,
+				name: convertBlockToIr(node.inputs?.name),
+				value: convertBlockToIr(node.inputs?.value?.block),
 				uid: node?.id ?? nanoid(),
 			};
 		},
 	},
 	toBlocks: {
-		assignment_expression: (node) => {
+		variable_declaration: (node) => {
 			return {
-				type: "assignment_expression",
+				type: "variable_declaration",
 				id: node.uid,
 				inputs: {
 					left: {
