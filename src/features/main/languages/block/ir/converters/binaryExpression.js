@@ -1,24 +1,4 @@
-import { convertIrToBlock } from "..";
-
-/*
-const types = {
-	"===": "equal",
-	"!==": "not_equal",
-	">": "greater_than",
-	">=": "greater_than_or_equal",
-	"<": "less_than",
-	"<=": "less_than_or_equal",
-	"%": "remainder",
-	"+": "addition",
-	"-": "subtraction",
-	"*": "multiplication",
-	"/": "division",
-	"**": "exponentiation",
-	"&&": "logical_and",
-	"||": "logical_or",
-	"??": "nullish_coalescing",
-};
-*/
+import { convertBlockToIr, convertIrToBlock } from "..";
 
 const groups = {
 	equal_expression: ["equal", "not_equal"],
@@ -38,9 +18,25 @@ const groups = {
 	],
 };
 
-export const assignmentExpressionConverter = {
+export const binaryExpressionConverter = {
 	toIrs: {
-		binary_expression: (node) => {
+		equal_expression: (node) => {
+			return {
+				type: node.fields.type,
+				left: convertBlockToIr(node.inputs?.left?.block),
+				right: convertBlockToIr(node.inputs?.right?.block),
+				uid: node?.id ?? nanoid(),
+			};
+		},
+		comparison_expression: (node) => {
+			return {
+				type: node.fields.type,
+				left: convertBlockToIr(node.inputs?.left?.block),
+				right: convertBlockToIr(node.inputs?.right?.block),
+				uid: node?.id ?? nanoid(),
+			};
+		},
+		arithmetic_expression: (node) => {
 			return {
 				type: node.fields.type,
 				left: convertBlockToIr(node.inputs?.left?.block),

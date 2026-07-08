@@ -1,5 +1,5 @@
-import { nanoid } from 'nanoid';
-import { convertBlockChainToIr, convertBlockToIr, convertIrToBlock } from '..';
+import { nanoid } from "nanoid";
+import { convertBlockChainToIr, convertBlockToIr, convertIrToBlock } from "..";
 
 export const ifStatementConverter = {
 	toIrs: {
@@ -9,7 +9,7 @@ export const ifStatementConverter = {
 				condition: convertBlockToIr(node.inputs?.condition?.block),
 				content: convertBlockChainToIr(node.inputs?.content?.block),
 				alternative: convertBlockChainToIr(node.inputs?.alternative?.block),
-				uid: node?.uid ?? nanoid()
+				uid: node?.uid ?? nanoid(),
 			};
 		},
 	},

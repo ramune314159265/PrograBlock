@@ -1,5 +1,5 @@
-import { nanoid } from 'nanoid';
-import { convertBlockToIr } from '..';
+import { nanoid } from "nanoid";
+import { convertBlockToIr } from "..";
 
 export const identifierConverter = {
 	toIrs: {
@@ -7,15 +7,15 @@ export const identifierConverter = {
 			return {
 				type: "identifier",
 				name: convertBlockToIr(node.inputs?.name),
-				uid: node?.uid ?? nanoid()
+				uid: node?.uid ?? nanoid(),
 			};
 		},
 		undefined: (node) => {
 			return {
 				type: "undefined",
-				uid: node?.uid ?? nanoid()
+				uid: node?.uid ?? nanoid(),
 			};
-		}
+		},
 	},
 	toBlocks: {
 		identifier: (node) => {
@@ -23,8 +23,8 @@ export const identifierConverter = {
 				type: "identifier",
 				id: node.uid,
 				fields: {
-					left: node.name
-				}
+					left: node.name,
+				},
 			};
 		},
 	},

@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { convertBlockToIr, convertIrToBlock } from "..";
 
-export const assignmentExpressionConverter = {
+export const breakStatementConverter = {
 	toIrs: {
 		break_statement: (node) => {
 			return {

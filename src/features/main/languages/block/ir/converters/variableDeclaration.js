@@ -6,8 +6,8 @@ export const variableDeclarationConverter = {
 		variable_declaration: (node) => {
 			return {
 				type: "variable_declaration",
-				variableType: node.inputs.variableType,
-				name: convertBlockToIr(node.inputs?.name),
+				variableType: node.fields?.variableType,
+				name: node.fields?.name,
 				value: convertBlockToIr(node.inputs?.value?.block),
 				uid: node?.id ?? nanoid(),
 			};
@@ -18,12 +18,13 @@ export const variableDeclarationConverter = {
 			return {
 				type: "variable_declaration",
 				id: node.uid,
+				fields: {
+					variableType: node.variableType,
+					name: node.name,
+				},
 				inputs: {
-					left: {
-						block: convertIrToBlock(node.left),
-					},
-					right: {
-						block: convertIrToBlock(node.right),
+					value: {
+						block: convertIrToBlock(node.value),
 					},
 				},
 			};

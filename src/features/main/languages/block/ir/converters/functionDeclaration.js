@@ -1,5 +1,5 @@
-import { nanoid } from 'nanoid';
-import { convertBlockChainToIr, convertIrToBlockChain } from '..';
+import { nanoid } from "nanoid";
+import { convertBlockChainToIr, convertIrToBlockChain } from "..";
 
 export const functionDeclarationConverter = {
 	toIrs: {
@@ -9,7 +9,7 @@ export const functionDeclarationConverter = {
 				name: node.fields?.name,
 				parameters: [],
 				content: convertBlockChainToIr(node.inputs?.content.block),
-				uid: node?.uid ?? nanoid()
+				uid: node?.uid ?? nanoid(),
 			};
 		},
 	},
@@ -19,13 +19,13 @@ export const functionDeclarationConverter = {
 				type: "function_declaration",
 				id: node.uid,
 				fields: {
-					name: node.name
+					name: node.name,
 				},
 				inputs: {
 					content: {
-						block: convertIrToBlockChain(node.content)
+						block: convertIrToBlockChain(node.content),
 					},
-				}
+				},
 			};
 		},
 	},

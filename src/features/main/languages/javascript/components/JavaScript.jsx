@@ -1,7 +1,7 @@
 import { Editor } from "@monaco-editor/react";
 import { useEffect, useRef } from "react";
 import * as recast from "recast";
-import { applyDiff } from '../../../util/applyDiff';
+import { applyDiff } from "../../../util/applyDiff";
 import { convertIrToAstTree, convertJavaScriptToIr } from "../ir";
 
 export const JavaScript = ({ ir, setIr }) => {
@@ -24,15 +24,22 @@ export const JavaScript = ({ ir, setIr }) => {
 		}
 		const editorContent = editorRef.current?.getValue?.();
 		const ast = convertIrToAstTree(ir);
-		const lastAst = lastDataRef.current
+		const lastAst = lastDataRef.current;
 		lastDataRef.current = ast;
 		const recastAst = recast.parse(editorContent);
-		const appliedRecastAst = applyDiff(lastAst, ast, recastAst.program.body, {
-			metadataKeys: ['original'],
-			idKey: 'uid'
-		})
-		console.log(structuredClone({ lastAst, ast, appliedRecastAst, recastAst }))
-		recastAst.program.body = appliedRecastAst
+		const appliedRecastAst = applyDiff(
+			lastAst,
+			ast,
+			recastAst.program.body,
+			{
+				metadataKeys: ["original"],
+				idKey: "uid",
+			},
+		);
+		console.log(
+			structuredClone({ lastAst, ast, appliedRecastAst, recastAst }),
+		);
+		recastAst.program.body = appliedRecastAst;
 		editorRef.current?.setValue?.(recast.print(recastAst).code);
 	}, [ir]);
 

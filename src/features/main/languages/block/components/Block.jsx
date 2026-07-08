@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import * as Blockly from "blockly/core";
 import * as Ja from "blockly/msg/ja";
 import { useEffect, useRef } from "react";
+import { convertBlocklyToIr } from "../ir";
 
 Blockly.common.defineBlocksWithJsonArray([
 	{
@@ -85,7 +86,7 @@ Blockly.common.defineBlocksWithJsonArray([
 		type: "equal_expression",
 		tooltip: "2つの値が等しいか判定します",
 		helpUrl: "",
-		message0: "%1 と %3 が %2 %4",
+		message0: "%1 と %3 が %2 かどうか %4",
 		args0: [
 			{
 				type: "input_value",
@@ -115,7 +116,7 @@ Blockly.common.defineBlocksWithJsonArray([
 		type: "comparison_expression",
 		tooltip: "数値の比較をします",
 		helpUrl: "",
-		message0: "%1 %2 %3 %4",
+		message0: "%1 %2 %3 であるか %4",
 		args0: [
 			{
 				type: "input_value",
@@ -180,7 +181,7 @@ Blockly.common.defineBlocksWithJsonArray([
 		type: "break_statement",
 		tooltip: "ループ、switchから抜け出します",
 		helpUrl: "",
-		message0: "処理を終了 %1",
+		message0: "処理を終了する %1",
 		args0: [
 			{
 				type: "input_dummy",
@@ -213,7 +214,7 @@ Blockly.common.defineBlocksWithJsonArray([
 		type: "conditional_expression",
 		tooltip: "三項演算子",
 		helpUrl: "",
-		message0: "もし %1 が真なら %2 が偽なら %3 %4",
+		message0: "もし %1 が真なら %2 の値、偽なら %3 の値 %4",
 		args0: [
 			{
 				type: "input_value",
@@ -282,7 +283,7 @@ Blockly.common.defineBlocksWithJsonArray([
 		type: "identifier",
 		tooltip: "変数を参照します",
 		helpUrl: "",
-		message0: "変数 %1 %2",
+		message0: "変数 %1 の値 %2",
 		args0: [
 			{
 				type: "field_input",
@@ -298,137 +299,137 @@ Blockly.common.defineBlocksWithJsonArray([
 		colour: 225,
 	},
 	{
-		"type": "number",
-		"tooltip": "number",
-		"helpUrl": "",
-		"message0": "数値 %1 %2",
-		"args0": [
+		type: "number",
+		tooltip: "number",
+		helpUrl: "",
+		message0: "数値 %1 %2",
+		args0: [
 			{
-				"type": "field_number",
-				"name": "content",
-				"value": 0
+				type: "field_number",
+				name: "content",
+				value: 0,
 			},
 			{
-				"type": "input_dummy",
-				"name": "d1"
-			}
+				type: "input_dummy",
+				name: "d1",
+			},
 		],
-		"output": null,
-		"colour": 225
+		output: null,
+		colour: 225,
 	},
 	{
-		"type": "string",
-		"tooltip": "string",
-		"helpUrl": "",
-		"message0": "文字列 %1 %2",
-		"args0": [
+		type: "string",
+		tooltip: "string",
+		helpUrl: "",
+		message0: "文字列 %1 %2",
+		args0: [
 			{
-				"type": "field_input",
-				"name": "content",
-				"text": ""
+				type: "field_input",
+				name: "content",
+				text: "",
 			},
 			{
-				"type": "input_dummy",
-				"name": "d1"
-			}
+				type: "input_dummy",
+				name: "d1",
+			},
 		],
-		"output": null,
-		"colour": 225
+		output: null,
+		colour: 225,
 	},
 	{
-		"type": "true",
-		"tooltip": "true",
-		"helpUrl": "",
-		"message0": "真 %1",
-		"args0": [
+		type: "true",
+		tooltip: "true",
+		helpUrl: "",
+		message0: "真 %1",
+		args0: [
 			{
-				"type": "input_dummy",
-				"name": "d1"
-			}
+				type: "input_dummy",
+				name: "d1",
+			},
 		],
-		"output": null,
-		"colour": 225
+		output: null,
+		colour: 225,
 	},
 	{
-		"type": "false",
-		"tooltip": "false",
-		"helpUrl": "",
-		"message0": "偽 %1",
-		"args0": [
+		type: "false",
+		tooltip: "false",
+		helpUrl: "",
+		message0: "偽 %1",
+		args0: [
 			{
-				"type": "input_dummy",
-				"name": "d1"
-			}
+				type: "input_dummy",
+				name: "d1",
+			},
 		],
-		"output": null,
-		"colour": 225
+		output: null,
+		colour: 225,
 	},
 	{
-		"type": "return_statement",
-		"tooltip": "値を指定した場合は値を返し、現在の関数を終了します",
-		"helpUrl": "",
-		"message0": "値 %1 を返し、関数を終了する %2",
-		"args0": [
+		type: "return_statement",
+		tooltip: "値を指定した場合は値を返し、現在の関数を終了します",
+		helpUrl: "",
+		message0: "値 %1 を返し、関数を終了する %2",
+		args0: [
 			{
-				"type": "input_value",
-				"name": "content"
+				type: "input_value",
+				name: "content",
 			},
 			{
-				"type": "input_end_row",
-				"name": "d1"
-			}
+				type: "input_end_row",
+				name: "d1",
+			},
 		],
-		"previousStatement": null,
-		"nextStatement": null,
-		"colour": 225
+		previousStatement: null,
+		nextStatement: null,
+		colour: 225,
 	},
 	{
-		"type": "switch_statement",
-		"tooltip": "値がそれぞれの場合に当てはまるかどうかで分岐します",
-		"helpUrl": "",
-		"message0": "%1 が %2 %3",
-		"args0": [
+		type: "switch_statement",
+		tooltip: "値がそれぞれの場合に当てはまるかどうかで分岐します",
+		helpUrl: "",
+		message0: "もし %1 が... %2 %3",
+		args0: [
 			{
-				"type": "input_value",
-				"name": "discriminant"
+				type: "input_value",
+				name: "discriminant",
 			},
 			{
-				"type": "input_dummy",
-				"name": "d1"
+				type: "input_dummy",
+				name: "d1",
 			},
 			{
-				"type": "input_statement",
-				"name": "NAME",
-				"check": "switch_case"
-			}
+				type: "input_statement",
+				name: "content",
+				check: "switch_case",
+			},
 		],
-		"previousStatement": null,
-		"nextStatement": null,
-		"colour": 225
+		previousStatement: null,
+		nextStatement: null,
+		colour: 225,
 	},
 	{
-		"type": "switch_case",
-		"tooltip": "",
-		"helpUrl": "",
-		"message0": "%1 の場合 %2 %3",
-		"args0": [
+		type: "switch_case",
+		tooltip: "",
+		helpUrl: "",
+		message0: "%1 の場合 %2 %3",
+		args0: [
 			{
-				"type": "input_value",
-				"name": "condition"
+				type: "input_value",
+				name: "condition",
 			},
 			{
-				"type": "input_dummy",
-				"name": "d1"
+				type: "input_dummy",
+				name: "d1",
 			},
 			{
-				"type": "input_statement",
-				"name": "content"
-			}
+				type: "input_statement",
+				name: "content",
+			},
 		],
-		"previousStatement": null,
-		"nextStatement": "switch_case",
-		"colour": 225
-	}
+		previousStatement: null,
+		nextStatement: "switch_case",
+		colour: 225,
+	},
 ]);
 
 const toolbox = {
@@ -504,11 +505,21 @@ const toolbox = {
 		},
 		{
 			kind: "block",
-			type: "switch_case",
-		},
-		{
-			kind: "block",
 			type: "switch_statement",
+			inputs: {
+				content: {
+					block: {
+						kind: "block",
+						type: "switch_case",
+						next: {
+							block: {
+								kind: "block",
+								type: "switch_case",
+							},
+						},
+					},
+				},
+			},
 		},
 	],
 };
@@ -536,10 +547,12 @@ export const Block = ({ ir, setIr }) => {
 			renderer: "Zelos",
 		});
 
-		workspace.addChangeListener(e => {
-			if (e.isUiEvent) return
+		workspace.addChangeListener((e) => {
+			if (e.isUiEvent) return;
 			const json = Blockly.serialization.workspaces.save(workspace);
 			console.log(json);
+			const ir = convertBlocklyToIr(json);
+			console.log(ir);
 		});
 	}, [containerRef]);
 
