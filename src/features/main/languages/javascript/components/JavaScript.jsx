@@ -9,6 +9,7 @@ export const JavaScript = ({ ir, setIr }) => {
 	const isFocusedRef = useRef(false);
 	const lastDataRef = useRef({});
 	const changedHandle = (c) => {
+		console.log(convertJavaScriptToIr(c));
 		if (!isFocusedRef.current) {
 			return;
 		}

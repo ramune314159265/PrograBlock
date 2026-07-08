@@ -26,7 +26,7 @@ Blockly.common.defineBlocksWithJsonArray([
 			},
 			{
 				type: "input_value",
-				name: "init",
+				name: "value",
 			},
 			{
 				type: "input_dummy",
@@ -547,12 +547,20 @@ export const Block = ({ ir, setIr }) => {
 			renderer: "Zelos",
 		});
 
+		const events = [Blockly.Events.BLOCK_CHANGE, Blockly.Events.BLOCK_MOVE];
+
 		workspace.addChangeListener((e) => {
-			if (e.isUiEvent) return;
+			if (!events.includes(e.type)) {
+				return;
+			}
 			const json = Blockly.serialization.workspaces.save(workspace);
 			console.log(json);
 			const ir = convertBlocklyToIr(json);
+			if (!ir) {
+				return;
+			}
 			console.log(ir);
+			setIr(ir);
 		});
 	}, [containerRef]);
 

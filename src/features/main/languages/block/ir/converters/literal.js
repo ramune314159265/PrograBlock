@@ -6,14 +6,14 @@ export const literalConverter = {
 		number: (node) => {
 			return {
 				type: "number",
-				value: node.inputs?.content,
+				content: node.fields?.content,
 				uid: node?.uid ?? nanoid(),
 			};
 		},
 		string: (node) => {
 			return {
 				type: "string",
-				value: node.inputs?.content,
+				content: node.fields?.content,
 				uid: node?.uid ?? nanoid(),
 			};
 		},
@@ -35,7 +35,7 @@ export const literalConverter = {
 			return {
 				type: "number",
 				id: node?.uid ?? nanoid(),
-				inputs: {
+				fields: {
 					content: node.content,
 				},
 			};
@@ -44,7 +44,7 @@ export const literalConverter = {
 			return {
 				type: "string",
 				id: node?.uid ?? nanoid(),
-				inputs: {
+				fields: {
 					content: node.content,
 				},
 			};

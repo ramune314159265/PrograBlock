@@ -65,8 +65,11 @@ export const convertBlockChainToIr = (node) => {
 };
 
 export const convertBlocklyToIr = (data) => {
+	if (!data?.blocks?.blocks) {
+		return;
+	}
 	const blocks = data.blocks.blocks;
-	return blocks.map((b) => convertBlockChainToIr(b));
+	return blocks.flatMap((b) => convertBlockChainToIr(b));
 };
 
 export const convertIrToBlock = (node) => {

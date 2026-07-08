@@ -4,6 +4,7 @@ import { convertBlockToIr, convertIrToBlock } from "..";
 export const variableDeclarationConverter = {
 	toIrs: {
 		variable_declaration: (node) => {
+			console.log("a", node, convertBlockToIr(node.inputs?.value?.block));
 			return {
 				type: "variable_declaration",
 				variableType: node.fields?.variableType,
