@@ -78,5 +78,5 @@ export const convertIrToAst = (node) => {
 };
 
 export const convertIrToAstTree = (node) => {
-	return node?.map(convertIrToAst);
+	return node?.map?.(convertIrToAst);
 };

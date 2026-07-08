@@ -8,7 +8,7 @@ import { blockStatementConverter } from "./converters/blockStatement";
 import { breakStatementConverter } from "./converters/breakStatement";
 import { callExpressionConverter } from "./converters/callExpression";
 import { conditionalExpressionConverter } from "./converters/conditionalExpression";
-import { expressionExpressionConverter } from "./converters/expressionStatement";
+import { expressionStatementConverter } from "./converters/expressionStatement";
 import { functionDeclarationConverter } from "./converters/functionDeclaration";
 import { identifierConverter } from "./converters/identifier";
 import { ifStatementConverter } from "./converters/ifStatement";
@@ -25,7 +25,7 @@ const converters = [
 	breakStatementConverter,
 	callExpressionConverter,
 	conditionalExpressionConverter,
-	expressionExpressionConverter,
+	expressionStatementConverter,
 	functionDeclarationConverter,
 	identifierConverter,
 	ifStatementConverter,
@@ -58,7 +58,7 @@ export const convertBlockToIr = (node) => {
 
 export const convertBlockChainToIr = (node) => {
 	if (!node) {
-		return;
+		return [];
 	}
 	const array = objectChainToArray(node, ["next", "block"]);
 	return array.map(convertBlockToIr);
@@ -66,10 +66,12 @@ export const convertBlockChainToIr = (node) => {
 
 export const convertBlocklyToIr = (data) => {
 	if (!data?.blocks?.blocks) {
-		return;
+		return {};
 	}
 	const blocks = data.blocks.blocks;
-	return blocks.flatMap((b) => convertBlockChainToIr(b));
+	return blocks
+		.filter(b => b.type === 'start' && b.next?.block)
+		.flatMap((b) => convertBlockChainToIr(b.next?.block));
 };
 
 export const convertIrToBlock = (node) => {

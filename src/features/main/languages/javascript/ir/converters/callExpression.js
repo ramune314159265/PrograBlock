@@ -17,7 +17,7 @@ export const callExpressionConverter = {
 			return {
 				type: "CallExpression",
 				callee: convertIrToAst(node.function),
-				arguments: node.arguments.map(convertIrToAst),
+				arguments: node.arguments?.map?.(convertIrToAst) ?? [],
 				uid: node?.uid ?? null
 			};
 		},

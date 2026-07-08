@@ -6,6 +6,20 @@ import { convertBlocklyToIr } from "../ir";
 
 Blockly.common.defineBlocksWithJsonArray([
 	{
+		type: "start",
+		tooltip: "プログラムが開始されたとき、下に連なってるブロックを順に実行します",
+		helpUrl: "",
+		message0: "プログラム開始 %1",
+		args0: [
+			{
+				type: "input_dummy",
+				name: "d1"
+			}
+		],
+		nextStatement: null,
+		colour: 225
+	},
+	{
 		type: "variable_declaration",
 		tooltip: "変数、定数の定義をします",
 		helpUrl: "",
@@ -102,11 +116,11 @@ Blockly.common.defineBlocksWithJsonArray([
 			},
 			{
 				type: "input_value",
-				name: "type",
+				name: "right",
 			},
 			{
 				type: "input_end_row",
-				name: "right",
+				name: "d1",
 			},
 		],
 		output: null,
@@ -134,11 +148,11 @@ Blockly.common.defineBlocksWithJsonArray([
 			},
 			{
 				type: "input_value",
-				name: "type",
+				name: "right",
 			},
 			{
 				type: "input_end_row",
-				name: "right",
+				name: "d1",
 			},
 		],
 		output: null,
@@ -167,11 +181,11 @@ Blockly.common.defineBlocksWithJsonArray([
 			},
 			{
 				type: "input_value",
-				name: "type",
+				name: "right",
 			},
 			{
 				type: "input_end_row",
-				name: "right",
+				name: "d1",
 			},
 		],
 		output: null,
@@ -283,7 +297,7 @@ Blockly.common.defineBlocksWithJsonArray([
 		type: "identifier",
 		tooltip: "変数を参照します",
 		helpUrl: "",
-		message0: "変数 %1 の値 %2",
+		message0: "変数 %1 %2",
 		args0: [
 			{
 				type: "field_input",
@@ -399,7 +413,7 @@ Blockly.common.defineBlocksWithJsonArray([
 			},
 			{
 				type: "input_statement",
-				name: "content",
+				name: "cases",
 				check: "switch_case",
 			},
 		],
@@ -437,6 +451,10 @@ const toolbox = {
 	contents: [
 		{
 			kind: "block",
+			type: "start",
+		},
+		{
+			kind: "block",
 			type: "variable_declaration",
 		},
 		{
@@ -446,6 +464,17 @@ const toolbox = {
 		{
 			kind: "block",
 			type: "assignment_expression",
+			inputs: {
+				left: {
+					block: {
+						kind: "block",
+						type: "identifier",
+						fields: {
+							name: 'identifier'
+						}
+					},
+				},
+			},
 		},
 		{
 			kind: "block",
@@ -466,6 +495,17 @@ const toolbox = {
 		{
 			kind: "block",
 			type: "call_expression",
+			inputs: {
+				function: {
+					block: {
+						kind: "block",
+						type: "identifier",
+						fields: {
+							name: 'func'
+						}
+					},
+				},
+			},
 		},
 		{
 			kind: "block",
@@ -507,7 +547,7 @@ const toolbox = {
 			kind: "block",
 			type: "switch_statement",
 			inputs: {
-				content: {
+				cases: {
 					block: {
 						kind: "block",
 						type: "switch_case",
@@ -520,6 +560,10 @@ const toolbox = {
 					},
 				},
 			},
+		},
+		{
+			kind: "block",
+			type: "switch_case",
 		},
 	],
 };
@@ -554,12 +598,12 @@ export const Block = ({ ir, setIr }) => {
 				return;
 			}
 			const json = Blockly.serialization.workspaces.save(workspace);
-			console.log(json);
+			console.log("blockly", json);
 			const ir = convertBlocklyToIr(json);
 			if (!ir) {
 				return;
 			}
-			console.log(ir);
+			console.log("ir", ir);
 			setIr(ir);
 		});
 	}, [containerRef]);

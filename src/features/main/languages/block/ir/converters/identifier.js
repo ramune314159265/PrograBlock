@@ -1,12 +1,11 @@
 import { nanoid } from "nanoid";
-import { convertBlockToIr } from "..";
 
 export const identifierConverter = {
 	toIrs: {
 		identifier: (node) => {
 			return {
 				type: "identifier",
-				name: convertBlockToIr(node.inputs?.name),
+				name: node.fields?.name,
 				uid: node?.uid ?? nanoid(),
 			};
 		},

@@ -16,8 +16,9 @@ export const assignmentExpressionConverter = {
 		assignment_expression: (node) => {
 			return {
 				type: "AssignmentExpression",
-				left: convertIrToAst(node.right),
-				right: convertIrToAst(node.left),
+				operator: "=",
+				left: convertIrToAst(node.left),
+				right: convertIrToAst(node.right),
 				uid: node?.uid ?? null
 			};
 		},

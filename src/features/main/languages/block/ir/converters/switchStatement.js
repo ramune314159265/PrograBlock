@@ -29,7 +29,7 @@ export const switchStatementConverter = {
 						block: convertIrToBlock(node.discriminant),
 					},
 					cases: {
-						block: convertIrToBlockChain(node.casesva),
+						block: convertIrToBlockChain(node.cases),
 					},
 				},
 			};

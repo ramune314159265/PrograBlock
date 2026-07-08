@@ -9,7 +9,6 @@ export const JavaScript = ({ ir, setIr }) => {
 	const isFocusedRef = useRef(false);
 	const lastDataRef = useRef({});
 	const changedHandle = (c) => {
-		console.log(convertJavaScriptToIr(c));
 		if (!isFocusedRef.current) {
 			return;
 		}
@@ -36,7 +35,7 @@ export const JavaScript = ({ ir, setIr }) => {
 				metadataKeys: ["original"],
 				idKey: "uid",
 			},
-		);
+		) ?? [];
 		console.log(
 			structuredClone({ lastAst, ast, appliedRecastAst, recastAst }),
 		);
