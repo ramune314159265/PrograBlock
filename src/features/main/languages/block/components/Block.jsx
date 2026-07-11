@@ -1,10 +1,10 @@
 import { Box } from "@chakra-ui/react";
-import * as Blockly from "blockly/core";
-import * as Ja from "blockly/msg/ja";
+import * as ScratchBlocks from "scratch-blocks";
+// import * as Ja from "blockly/msg/ja";
 import { useEffect, useRef } from "react";
 import { convertBlocklyToIr } from "../ir";
 
-Blockly.common.defineBlocksWithJsonArray([
+ScratchBlocks.common.defineBlocksWithJsonArray([
 	{
 		type: "start",
 		tooltip: "プログラムが開始されたとき、下に連なってるブロックを順に実行します",
@@ -17,7 +17,7 @@ Blockly.common.defineBlocksWithJsonArray([
 			}
 		],
 		nextStatement: null,
-		colour: 225
+		extensions: ['colours_event','shape_hat']
 	},
 	{
 		type: "variable_declaration",
@@ -49,7 +49,6 @@ Blockly.common.defineBlocksWithJsonArray([
 		],
 		previousStatement: null,
 		nextStatement: null,
-		colour: 225,
 	},
 	{
 		type: "if_statement",
@@ -319,7 +318,7 @@ Blockly.common.defineBlocksWithJsonArray([
 		message0: "数値 %1 %2",
 		args0: [
 			{
-				type: "field_number",
+				type: "input_value",
 				name: "content",
 				value: 0,
 			},
@@ -577,27 +576,41 @@ export const Block = ({ ir, setIr }) => {
 		}
 
 		initializedRef.current = true;
-		Blockly.setLocale(Ja);
-		const workspace = Blockly.inject(containerRef.current, {
+		// Blockly.setLocale(Ja);
+		const workspace = ScratchBlocks.inject(containerRef.current, {
 			toolbox,
+			zoom: {
+				controls: true,
+				wheel: true,
+				pinch: true,
+				startScale: 1
+			},
 			move: {
-				scrollbars: {
-					horizontal: true,
-					vertical: true,
-				},
 				drag: true,
 				wheel: false,
 			},
-			renderer: "Zelos",
+			grid: {
+				spacing: 40,
+				length: 2,
+				colour: '#ddd'
+			},
+			comments: true,
+			collapse: false,
+			sounds: false,
+			trashcan: false,
+			modalInputs: false,
+			media: '/scratch/blocks-media/',
+			theme: new ScratchBlocks.Theme('default'),
+			scratchTheme: ScratchBlocks.ScratchBlocksTheme.CAT_BLOCKS
 		});
 
-		const events = [Blockly.Events.BLOCK_CHANGE, Blockly.Events.BLOCK_MOVE];
+		const events = [ScratchBlocks.Events.BLOCK_CHANGE, ScratchBlocks.Events.BLOCK_MOVE];
 
 		workspace.addChangeListener((e) => {
 			if (!events.includes(e.type)) {
 				return;
 			}
-			const json = Blockly.serialization.workspaces.save(workspace);
+			const json = ScratchBlocks.serialization.workspaces.save(workspace);
 			console.log("blockly", json);
 			const ir = convertBlocklyToIr(json);
 			if (!ir) {
@@ -608,5 +621,12 @@ export const Block = ({ ir, setIr }) => {
 		});
 	}, [containerRef]);
 
-	return <Box ref={containerRef} width="full" height="full"></Box>;
+	return (
+		<Box
+			ref={containerRef}
+			width="full"
+			height="full"
+			overflow='hidden'
+		></Box>
+	);
 };
