@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import { Editor } from "@monaco-editor/react";
 import { useEffect, useRef } from "react";
 import * as recast from "recast";
@@ -44,22 +45,27 @@ export const JavaScript = ({ ir, setIr }) => {
 	}, [ir]);
 
 	return (
-		<Editor
-			height="100vh"
-			defaultLanguage="javascript"
-			theme="vs-dark"
-			onMount={(editor) => {
-				editorRef.current = editor;
-				editor.getModel().onDidChangeContent(() => {
-					changedHandle(editor.getValue());
-				});
-				editor.onDidFocusEditorText(() => {
-					isFocusedRef.current = true;
-				});
-				editor.onDidBlurEditorText(() => {
-					isFocusedRef.current = false;
-				});
-			}}
-		></Editor>
+		<Box
+			width='full'
+			height='full'
+			overflow='hidden'
+		>
+			<Editor
+				defaultLanguage="javascript"
+				theme="vs-dark"
+				onMount={(editor) => {
+					editorRef.current = editor;
+					editor.getModel().onDidChangeContent(() => {
+						changedHandle(editor.getValue());
+					});
+					editor.onDidFocusEditorText(() => {
+						isFocusedRef.current = true;
+					});
+					editor.onDidBlurEditorText(() => {
+						isFocusedRef.current = false;
+					});
+				}}
+			></Editor>
+		</Box>
 	);
 };
