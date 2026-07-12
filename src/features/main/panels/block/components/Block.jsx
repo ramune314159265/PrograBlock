@@ -1,15 +1,17 @@
 import { Box } from "@chakra-ui/react";
 import * as ScratchBlocks from "scratch-blocks";
 // import * as Ja from "blockly/msg/ja";
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { useEffect, useRef } from "react";
 import { settingAtom } from '../../../../../state/settingAtom';
+import { irAtom } from '../../../states/editor';
 import { blocks, toolboxContents } from '../data/blocks';
 import { colorModes } from '../data/colorModes';
 import { extensions } from '../extensions';
 import { convertBlocklyToIr } from "../ir";
 
-export const Block = ({ ir, setIr }) => {
+export const Block = () => {
+	const [ir, setIr] = useAtom(irAtom)
 	const themeModeAtom = settingAtom('theme_mode')
 	const themeMode = useAtomValue(themeModeAtom)
 

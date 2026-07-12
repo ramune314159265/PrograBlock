@@ -1,14 +1,13 @@
 import { Box } from "@chakra-ui/react";
 import { Layout, Model } from "flexlayout-react";
-import { useAtom } from "jotai";
-import { languages } from "./languages";
-import { contentAtom } from "./states/content";
+import { panels } from "./panels";
 import './styles/flex_layout.css';
 
 const json = {
     global: {
         tabEnableClose: false,
         splitterEnableHandle: true,
+        rootOrientationVertical: true,
     },
     borders: [],
     layout: {
@@ -16,24 +15,41 @@ const json = {
         weight: 100,
         children: [
             {
-                type: "tabset",
-                weight: 40,
+                type: "row",
+                weight: 70,
                 children: [
                     {
-                        type: "tab",
-                        name: "JavaScript",
-                        component: "javascript",
+                        type: "tabset",
+                        weight: 40,
+                        children: [
+                            {
+                                type: "tab",
+                                name: "JavaScript",
+                                component: "javascript",
+                            }
+                        ]
+                    },
+                    {
+                        type: "tabset",
+                        weight: 60,
+                        children: [
+                            {
+                                type: "tab",
+                                name: "ブロック",
+                                component: "block",
+                            }
+                        ]
                     }
                 ]
             },
             {
                 type: "tabset",
-                weight: 60,
+                weight: 30,
                 children: [
                     {
                         type: "tab",
-                        name: "ブロック",
-                        component: "block",
+                        name: "出力",
+                        component: "output",
                     }
                 ]
             }
@@ -44,19 +60,18 @@ const json = {
 const model = Model.fromJson(json);
 
 export const MainPage = () => {
-    const [content, setContent] = useAtom(contentAtom);
     const factory = (node) => {
         const id = node.getComponent()
-        const data = languages[id]
+        const data = panels[id]
         if (!data?.component) {
             return <div>不明なコンポーネント</div>
         }
 
-        return <data.component ir={content} setIr={setContent}></data.component>
+        return <data.component></data.component>
     }
     const renderTabHandle = (node, renderValues) => {
         const id = node.getComponent()
-        const data = languages[id]
+        const data = panels[id]
         if (!data?.icon) {
             return
         }

@@ -1,9 +1,10 @@
 import { GiCat } from "react-icons/gi";
 import { IoLogoJavascript } from "react-icons/io";
-import { Block } from "./languages/block/components/Block";
-import { JavaScript } from "./languages/javascript/components/JavaScript";
+import { Block } from "./panels/block/components/Block";
+import { JavaScript } from "./panels/javascript/components/JavaScript";
+import { Output } from './panels/output/components/Output';
 
-export const languages = {
+export const panels = {
 	javascript: {
 		id: 'javascript',
 		name: 'JavaScript',
@@ -15,5 +16,10 @@ export const languages = {
 		name: 'ブロック',
 		component: Block,
 		icon: GiCat
+	},
+	output: {
+		id:'output',
+		name: '出力',
+		component: Output,
 	}
 }

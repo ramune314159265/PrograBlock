@@ -1,11 +1,16 @@
 import { Box } from '@chakra-ui/react';
 import { Editor } from "@monaco-editor/react";
+import { useAtom } from 'jotai';
 import { useEffect, useRef } from "react";
 import * as recast from "recast";
+import { irAtom, javascriptContentAtom } from '../../../states/editor';
 import { applyDiff } from "../../../util/applyDiff";
 import { convertIrToAstTree, convertJavaScriptToIr } from "../ir";
 
-export const JavaScript = ({ ir, setIr }) => {
+export const JavaScript = () => {
+	const [ir, setIr] = useAtom(irAtom)
+	const [javaScriptContent, setJavaScriptContent] = useAtom(javascriptContentAtom)
+
 	const editorRef = useRef(null);
 	const isFocusedRef = useRef(false);
 	const lastDataRef = useRef({});
@@ -13,9 +18,10 @@ export const JavaScript = ({ ir, setIr }) => {
 		if (!isFocusedRef.current) {
 			return;
 		}
+
+		setJavaScriptContent(c)
 		const ir = convertJavaScriptToIr(c);
 		setIr(ir);
-		const editorContent = editorRef.current?.getValue?.();
 		const ast = convertIrToAstTree(ir);
 		lastDataRef.current = ast;
 	};
@@ -23,11 +29,11 @@ export const JavaScript = ({ ir, setIr }) => {
 		if (isFocusedRef.current) {
 			return;
 		}
-		const editorContent = editorRef.current?.getValue?.();
+
 		const ast = convertIrToAstTree(ir);
 		const lastAst = lastDataRef.current;
 		lastDataRef.current = ast;
-		const recastAst = recast.parse(editorContent);
+		const recastAst = recast.parse(javaScriptContent);
 		const appliedRecastAst = applyDiff(
 			lastAst,
 			ast,
@@ -41,8 +47,15 @@ export const JavaScript = ({ ir, setIr }) => {
 			structuredClone({ lastAst, ast, appliedRecastAst, recastAst }),
 		);
 		recastAst.program.body = appliedRecastAst;
-		editorRef.current?.setValue?.(recast.print(recastAst).code);
+		setJavaScriptContent(recast.print(recastAst).code)
 	}, [ir]);
+	useEffect(() => {
+		if (isFocusedRef.current) {
+			return;
+		}
+
+		editorRef.current?.setValue?.(javaScriptContent)
+	}, [javaScriptContent])
 
 	return (
 		<Box

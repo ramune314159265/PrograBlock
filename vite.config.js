@@ -20,8 +20,7 @@ export default defineConfig({
     }),
     generateLicenses(),
     VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: 'auto',
+      strategies: 'injectManifest',
       manifest: {
         name: 'PrograBlock',
         description: 'コード(JavaScript)とブロックを変換しながらプログラミングが出来るツール',
@@ -41,9 +40,6 @@ export default defineConfig({
           }
         ]
       },
-      // devOptions: {
-      //   enabled: true
-      // }
     }),
     viteOgp({
       basic: {
