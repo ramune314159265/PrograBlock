@@ -19,7 +19,7 @@ export const variables = {
 				{
 					type: "field_input",
 					name: "name",
-					text: "name",
+					text: "変数名",
 				},
 				{
 					type: "input_value",
@@ -32,6 +32,7 @@ export const variables = {
 			],
 			previousStatement: null,
 			nextStatement: null,
+			extensions: ['expression_auto_wrap'],
 		},
 		{
 			type: "assignment_expression",
@@ -53,6 +54,7 @@ export const variables = {
 				},
 			],
 			output: null,
+			extensions: ['expression_auto_wrap'],
 			data: {
 				inputs: {
 					left: {
@@ -76,7 +78,7 @@ export const variables = {
 				{
 					type: "field_input",
 					name: "name",
-					text: "identifier",
+					text: "関数名",
 				},
 				{
 					type: "input_dummy",
@@ -84,6 +86,7 @@ export const variables = {
 				},
 			],
 			output: null,
+			extensions: ['expression_auto_wrap'],
 		},
 	]
 }

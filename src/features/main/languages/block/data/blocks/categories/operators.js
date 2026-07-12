@@ -118,6 +118,7 @@ export const operators = {
 				},
 			],
 			output: null,
+			extensions: ['expression_auto_wrap'],
 		},
 	]
 }

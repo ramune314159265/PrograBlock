@@ -55,7 +55,7 @@ export const control = {
 				{
 					type: "input_statement",
 					name: "cases",
-					check: "switch_case",
+					check: ["switch_case"],
 				},
 			],
 			previousStatement: null,
@@ -96,8 +96,8 @@ export const control = {
 					name: "content",
 				},
 			],
-			previousStatement: null,
-			nextStatement: "switch_case",
+			previousStatement: ["switch_statement", "switch_case"],
+			nextStatement: ["switch_case"],
 		},
 		{
 			type: "break_statement",

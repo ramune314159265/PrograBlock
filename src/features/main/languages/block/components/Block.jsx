@@ -6,20 +6,14 @@ import { useEffect, useRef } from "react";
 import { settingAtom } from '../../../../../state/settingAtom';
 import { blocks, toolboxContents } from '../data/blocks';
 import { colorModes } from '../data/colorModes';
+import { extensions } from '../extensions';
 import { convertBlocklyToIr } from "../ir";
-
-ScratchBlocks.common.defineBlocksWithJsonArray(blocks);
-const toolbox = {
-	kind: 'categoryToolbox',
-	contents: toolboxContents
-}
-console.log(toolbox)
 
 export const Block = ({ ir, setIr }) => {
 	const themeModeAtom = settingAtom('theme_mode')
 	const themeMode = useAtomValue(themeModeAtom)
 
-	const containerRef = useRef();
+	const containerRef = useRef(null);
 	const workspaceRef = useRef(null);
 
 	useEffect(() => {
@@ -27,8 +21,17 @@ export const Block = ({ ir, setIr }) => {
 			return;
 		}
 
+		Object.entries(extensions).forEach(([name, fn]) => {
+			ScratchBlocks.Extensions.register(name, function () {
+				return fn(this)
+			})
+		})
+		ScratchBlocks.common.defineBlocksWithJsonArray(blocks);
 		const workspace = ScratchBlocks.inject(containerRef.current, {
-			toolbox,
+			toolbox: {
+				kind: 'categoryToolbox',
+				contents: toolboxContents
+			},
 			zoom: {
 				controls: true,
 				wheel: true,

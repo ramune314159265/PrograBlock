@@ -9,9 +9,9 @@ export const values = {
 			message0: "数値 %1 %2",
 			args0: [
 				{
-					type: "input_value",
+					type: "field_number",
 					name: "content",
-					value: 0,
+					value: 1,
 				},
 				{
 					type: "input_dummy",
@@ -29,7 +29,7 @@ export const values = {
 				{
 					type: "field_input",
 					name: "content",
-					text: "",
+					text: "文字",
 				},
 				{
 					type: "input_dummy",

@@ -11,7 +11,7 @@ export const functions = {
 				{
 					type: "field_input",
 					name: "name",
-					text: "func",
+					text: "関数名",
 				},
 				{
 					type: "input_dummy",
@@ -63,6 +63,7 @@ export const functions = {
 				},
 			],
 			output: null,
+			extensions: ['expression_auto_wrap'],
 			data: {
 				inputs: {
 					function: {
