@@ -17,7 +17,7 @@ const json = {
         children: [
             {
                 type: "tabset",
-                weight: 50,
+                weight: 40,
                 children: [
                     {
                         type: "tab",
@@ -28,7 +28,7 @@ const json = {
             },
             {
                 type: "tabset",
-                weight: 50,
+                weight: 60,
                 children: [
                     {
                         type: "tab",

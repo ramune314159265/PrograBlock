@@ -14,7 +14,7 @@
   --color-drag2-background: rgba(16, 185, 129, 0.075);
   --splitter-size: 8px;
   --splitter-active-size: 8px;
-  --splitter-handle-visibility: hidden;
+  --splitter-handle-visibility: visible;
   --color-overflow: var(--color-5);
   --color-icon: var(--color-5);
   --color-tabset-background: var(--color-1);
@@ -30,7 +30,7 @@
   --color-tab-unselected: var(--color-5);
   --color-tab-unselected-background: transparent;
   --color-tab-textbox: var(--color-text);
-  --color-tab-textbox-background: var(--color-background);
+  --color-tab-textbox-background: var(--color-1);
   --color-border-tab-selected: var(--chakra-colors-fg);
   --color-border-tab-selected-background: var(--color-background);
   --color-border-tab-unselected: var(--color-5);
@@ -38,7 +38,7 @@
   --color-splitter: var(--color-1);
   --color-splitter-hover: var(--color-4);
   --color-splitter-drag: var(--color-4);
-  --color-splitter-handle: var(--color-3);
+  --color-splitter-handle: var(--color-5);
   --color-drag-rect-border: var(--color-3);
   --color-drag-rect-background: var(--color-background);
   --color-drag-rect: var(--color-text);
@@ -410,9 +410,9 @@
   border: none;
   color: var(--color-tab-textbox);
   background-color: var(--color-tab-textbox-background);
-  border: 1px inset var(--color-1);
   border-radius: 3px;
   width: 10em;
+  outline: none;
 }
 .flexlayout__tab_button_textbox:focus {
   outline: none;
