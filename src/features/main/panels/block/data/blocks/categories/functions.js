@@ -71,7 +71,7 @@ export const functions = {
 							kind: "block",
 							type: "identifier",
 							fields: {
-								name: 'func'
+								name: '関数名'
 							}
 						},
 					},

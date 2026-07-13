@@ -62,7 +62,7 @@ export const variables = {
 							kind: "block",
 							type: "identifier",
 							fields: {
-								name: 'identifier'
+								name: '変数名'
 							}
 						},
 					},
@@ -78,7 +78,7 @@ export const variables = {
 				{
 					type: "field_input",
 					name: "name",
-					text: "関数名",
+					text: "変数名",
 				},
 				{
 					type: "input_dummy",

@@ -11,7 +11,7 @@ export const values = {
 				{
 					type: "field_number",
 					name: "content",
-					value: 1,
+					text: 1,
 				},
 				{
 					type: "input_dummy",
