@@ -1,10 +1,10 @@
 .flexlayout__layout {
   --color-text: var(--chakra-colors-fg);
-  --color-background: var(--chakra-colors-bg-muted);
+  --color-background: var(--chakra-colors-bg);
   --color-base: #f9fafb;
-  --color-1: var(--chakra-colors-bg);
-  --color-2: var(--chakra-colors-bg-subtle);
-  --color-3: var(--chakra-colors-bg-subtle);
+  --color-1: var(--chakra-colors-bg-muted);
+  --color-2: var(--chakra-colors-bg-muted);
+  --color-3: var(--chakra-colors-bg-muted);
   --color-4: var(--chakra-colors-bg-emphasized);
   --color-5: var(--chakra-colors-fg-subtle);
   --color-6: var(--chakra-colors-fg-subtle);
