@@ -24,6 +24,9 @@ export const Block = () => {
 		}
 
 		Object.entries(extensions).forEach(([name, fn]) => {
+			if (ScratchBlocks.Extensions.isRegistered(name)) {
+				return
+			}
 			ScratchBlocks.Extensions.register(name, function () {
 				return fn(this)
 			})
@@ -58,6 +61,16 @@ export const Block = () => {
 			scratchTheme: ScratchBlocks.ScratchBlocksTheme.CAT_BLOCKS
 		});
 		workspaceRef.current = workspace
+		ScratchBlocks.serialization.workspaces.load({
+			"blocks": {
+				"languageVersion": 0,
+				"blocks": [
+					{
+						"type": "start"
+					}
+				]
+			}
+		}, workspace)
 
 		const events = [ScratchBlocks.Events.BLOCK_CHANGE, ScratchBlocks.Events.BLOCK_MOVE];
 		workspace.addChangeListener((e) => {

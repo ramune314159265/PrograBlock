@@ -1,22 +1,32 @@
-import { Box, HStack, IconButton, SimpleGrid } from "@chakra-ui/react";
+import { Tooltip } from '@/components/ui/tooltip';
+import { Box, IconButton, SimpleGrid, Spinner, VStack } from "@chakra-ui/react";
 import { WebContainer } from "@webcontainer/api";
 import { FitAddon } from "@xterm/addon-fit";
 import { Terminal } from "@xterm/xterm";
-import { HiPlay } from "react-icons/hi2";
 import "@xterm/xterm/css/xterm.css";
-import { useEffect, useRef } from "react";
 import { useAtom } from "jotai";
-import { processAtom } from "../../../states/runtime";
+import { useEffect, useRef } from "react";
+import { HiNoSymbol, HiPlay, HiStop } from "react-icons/hi2";
 import { javascriptContentAtom } from "../../../states/editor";
+import { processAtom } from "../../../states/runtime";
+
+let webContainerCache
+
+const getWebContainer = async () => {
+	if (!webContainerCache) {
+		webContainerCache = WebContainer.boot()
+	}
+
+	return webContainerCache
+}
 
 export const Output = () => {
 	const [process, setProcess] = useAtom(processAtom)
 	const [javaScriptContent, setJavaScriptContent] = useAtom(javascriptContentAtom)
 
 	const containerRef = useRef(null);
-	const termRef = useRef();
+	const termRef = useRef(null);
 	const webContainerRef = useRef(null);
-	const filesRef = useRef(null);
 	useEffect(() => {
 		if (!containerRef.current || termRef.current) {
 			return;
@@ -38,41 +48,50 @@ export const Output = () => {
 		webContainerRef.current = 1;
 
 		(async () => {
-			webContainerRef.current = await WebContainer.boot();
-			filesRef.current = {
+			webContainerRef.current = await getWebContainer();
+			const files = {
 				"index.js": {
 					file: {
-						contents: 'console.log("123")',
+						contents: '',
 					},
 				},
 			};
-			webContainerRef.current.mount(filesRef.current);
-			const process = await webContainerRef.current.spawn("node", [
-				"index.js",
-			]);
-			process.output.pipeTo(
-				new WritableStream({
-					write(data) {
-						termRef.current.write(data);
-					},
-				}),
-			);
+			webContainerRef.current.mount(files);
 		})();
 	});
 
+	const clear = () => {
+		if (!termRef.current) {
+			return
+		}
+		termRef.current.clear()
+	}
 	const run = async (content) => {
-		console.log(webContainerRef.current)
-		webContainerRef.current.fs.writeFile('index.js',content)
-		const process = await webContainerRef.current.spawn("node", [
+		if (process) {
+			return
+		}
+		webContainerRef.current.fs.writeFile('index.js', content)
+		const p = await webContainerRef.current.spawn("node", [
 			"index.js",
 		]);
-		process.output.pipeTo(
+		clear()
+		p.output.pipeTo(
 			new WritableStream({
 				write(data) {
 					termRef.current.write(data);
 				},
 			}),
 		);
+		setProcess(p)
+		await p.exit
+		setProcess(null)
+	}
+	const stop = () => {
+		console.log(process)
+		if (!process) {
+			return
+		}
+		process.kill()
 	}
 
 	return (
@@ -82,16 +101,28 @@ export const Output = () => {
 			height="full"
 			overflow="hidden"
 		>
-			<HStack
+			<VStack
 				width="full"
 				height="full"
-				justifyContent="center"
-				alignItems="flex-start"
+				justifyContent="flex-start"
+				alignItems="center"
 			>
-				<IconButton size="sm" variant="ghost" onClick={() => run(javaScriptContent)}>
-					<HiPlay />
-				</IconButton>
-			</HStack>
+				<Tooltip showArrow content={process ? '実行中...' : '実行する'} positioning={{ placement: "right-center" }}>
+					<IconButton size="sm" variant="ghost" onClick={() => run(javaScriptContent)} disabled={process}>
+						{process ? <Spinner /> : <HiPlay />}
+					</IconButton>
+				</Tooltip>
+				<Tooltip showArrow content={'停止する'} positioning={{ placement: "right-center" }}>
+					<IconButton size="sm" variant="ghost" onClick={() => stop()} disabled={!process}>
+						<HiStop />
+					</IconButton>
+				</Tooltip>
+				<Tooltip showArrow content={'コンソールをクリアする'} positioning={{ placement: "right-center" }}>
+					<IconButton size="sm" variant="ghost" onClick={() => clear()}>
+						<HiNoSymbol />
+					</IconButton>
+				</Tooltip>
+			</VStack>
 			<Box
 				ref={containerRef}
 				width="full"
