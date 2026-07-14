@@ -65,6 +65,7 @@ export const convertJavaScriptToIr = (code) => {
 		ecmaVersion: 2020,
 		sourceType: "script",
 	});
+	console.log({ ast })
 	return convertAstToIr(ast);
 };
 

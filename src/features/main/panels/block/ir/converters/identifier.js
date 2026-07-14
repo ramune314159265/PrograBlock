@@ -22,7 +22,7 @@ export const identifierConverter = {
 				type: "identifier",
 				id: node.uid,
 				fields: {
-					left: node.name,
+					name: node.name,
 				},
 			};
 		},

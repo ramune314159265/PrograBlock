@@ -89,5 +89,29 @@ export const convertIrToBlockChain = (node) => {
 };
 
 export const convertIrToBlockly = (node) => {
-	return convertIrToBlockChain(node);
+	if (node.length === 0) {
+		return {
+			"blocks": {
+				"languageVersion": 0,
+				"blocks": [
+					{
+						"type": "start"
+					}
+				]
+			}
+		}
+	}
+	return {
+		"blocks": {
+			"languageVersion": 0,
+			"blocks": [
+				{
+					"type": "start",
+					"next": {
+						"block": convertIrToBlockChain(node)
+					}
+				}
+			]
+		}
+	}
 };

@@ -19,52 +19,44 @@ const groups = {
 };
 
 export const binaryExpressionConverter = {
-	toIrs: {
-		equal_expression: (node) => {
-			return {
-				type: node.fields.type,
-				left: convertBlockToIr(node.inputs?.left?.block),
-				right: convertBlockToIr(node.inputs?.right?.block),
-				uid: node?.id ?? nanoid(),
+	toIrs: (() => {
+		const converters = {}
+		Object.keys(groups).forEach(t => {
+			converters[t] = (node) => {
+				return {
+					type: node.fields.type,
+					left: convertBlockToIr(node.inputs?.left?.block),
+					right: convertBlockToIr(node.inputs?.right?.block),
+					uid: node?.id ?? nanoid(),
+				}
 			};
-		},
-		comparison_expression: (node) => {
-			return {
-				type: node.fields.type,
-				left: convertBlockToIr(node.inputs?.left?.block),
-				right: convertBlockToIr(node.inputs?.right?.block),
-				uid: node?.id ?? nanoid(),
-			};
-		},
-		arithmetic_expression: (node) => {
-			return {
-				type: node.fields.type,
-				left: convertBlockToIr(node.inputs?.left?.block),
-				right: convertBlockToIr(node.inputs?.right?.block),
-				uid: node?.id ?? nanoid(),
-			};
-		},
-	},
-	toBlocks: {
-		binary_expression: (node) => {
-			const type = Object.entries(groups).find(([k, v]) =>
-				v.includes(node.type),
-			)[0];
-			return {
-				type: type,
-				id: node.uid,
-				fields: {
-					type: node.type,
-				},
-				inputs: {
-					left: {
-						block: convertIrToBlock(node.left),
+		})
+		return converters
+	})(),
+	toBlocks: (() => {
+		const converters = {}
+		Object.values(groups).flat().forEach(t => {
+			converters[t] = (node) => {
+				const type = Object.entries(groups).find(([k, v]) =>
+					v.includes(node.type),
+				)[0];
+				return {
+					type: type,
+					id: node.uid,
+					fields: {
+						type: node.type,
 					},
-					right: {
-						block: convertIrToBlock(node.right),
+					inputs: {
+						left: {
+							block: convertIrToBlock(node.left),
+						},
+						right: {
+							block: convertIrToBlock(node.right),
+						},
 					},
-				},
-			};
-		},
-	},
+				};
+			}
+		})
+		return converters
+	})(),
 };

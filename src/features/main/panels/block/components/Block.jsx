@@ -8,13 +8,14 @@ import { irAtom } from '../../../states/editor';
 import { blocks, toolboxContents } from '../data/blocks';
 import { colorModes } from '../data/colorModes';
 import { extensions } from '../extensions';
-import { convertBlocklyToIr } from "../ir";
+import { convertBlocklyToIr, convertIrToBlockly } from "../ir";
 
 export const Block = () => {
 	const [ir, setIr] = useAtom(irAtom)
 	const themeModeAtom = settingAtom('theme_mode')
 	const themeMode = useAtomValue(themeModeAtom)
 
+	const isFocusedRef = useRef(false);
 	const containerRef = useRef(null);
 	const workspaceRef = useRef(null);
 
@@ -92,7 +93,6 @@ export const Block = () => {
 		})
 		resizeObserver.observe(containerRef.current)
 	}, [containerRef]);
-
 	useEffect(() => {
 		if (!workspaceRef.current) {
 			return
@@ -103,6 +103,31 @@ export const Block = () => {
 		const themeId = mode === 'light' ? 'default' : 'dark'
 		workspaceRef.current.setTheme(new ScratchBlocks.Theme(themeId, colorModes[themeId]))
 	}, [themeMode])
+
+	useEffect(() => {
+		if (!workspaceRef.current || !ir) {
+			return
+		}
+		if (isFocusedRef.current) {
+			return
+		}
+		const json = convertIrToBlockly(ir)
+		console.log('blockly', json)
+		ScratchBlocks.serialization.workspaces.load(json, workspaceRef.current)
+	}, [ir])
+	useEffect(() => {
+		if (!containerRef.current) {
+			return
+		}
+		const abortController = new AbortController()
+		containerRef.current.addEventListener('focus', () => {
+			isFocusedRef.current = true
+		}, { signal: abortController.signal, capture: true })
+		containerRef.current.addEventListener('blur', () => {
+			isFocusedRef.current = false
+		}, { signal: abortController.signal, capture: true })
+		return () => abortController.abort()
+	})
 
 	return (
 		<Box
