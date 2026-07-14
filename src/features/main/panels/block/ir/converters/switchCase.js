@@ -4,6 +4,7 @@ import {
 	convertBlockToIr,
 	convertIrToBlock,
 	convertIrToBlockChain,
+    filterInputs,
 } from "..";
 
 export const switchCaseConverter = {
@@ -22,14 +23,14 @@ export const switchCaseConverter = {
 			return {
 				type: "switch_case",
 				id: node.uid,
-				fields: {
+				fields: filterInputs({
 					condition: {
 						block: convertIrToBlock(node.condition),
 					},
 					content: {
 						block: convertIrToBlockChain(node.content),
 					},
-				},
+				}),
 			};
 		},
 	},

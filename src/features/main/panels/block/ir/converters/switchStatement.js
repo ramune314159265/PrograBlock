@@ -4,6 +4,7 @@ import {
 	convertBlockToIr,
 	convertIrToBlock,
 	convertIrToBlockChain,
+    filterInputs,
 } from "..";
 
 export const switchStatementConverter = {
@@ -24,14 +25,14 @@ export const switchStatementConverter = {
 			return {
 				type: "switch_statement",
 				id: node.uid,
-				fields: {
+				fields: filterInputs({
 					discriminant: {
 						block: convertIrToBlock(node.discriminant),
 					},
 					cases: {
 						block: convertIrToBlockChain(node.cases),
 					},
-				},
+				}),
 			};
 		},
 	},

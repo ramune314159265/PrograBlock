@@ -84,32 +84,29 @@ export const convertIrToBlock = (node) => {
 };
 
 export const convertIrToBlockChain = (node) => {
-	const arrayConverted = node.map(convertIrToBlock);
+	const arrayConverted = node?.map?.(convertIrToBlock) ?? [];
 	return arrayToObjectChain(arrayConverted, ["next", "block"]);
 };
 
-export const convertIrToBlockly = (node) => {
-	if (node.length === 0) {
-		return {
-			"blocks": {
-				"languageVersion": 0,
-				"blocks": [
-					{
-						"type": "start"
-					}
-				]
-			}
+export const filterInputs = (inputs) => {
+	Object.entries(inputs).forEach(([k, v]) => {
+		if (!v?.block?.type) {
+			delete inputs[k]
 		}
-	}
+	})
+	return inputs
+}
+
+export const convertIrToBlockly = (node) => {
 	return {
 		"blocks": {
 			"languageVersion": 0,
 			"blocks": [
 				{
 					"type": "start",
-					"next": {
+					...filterInputs({"next": {
 						"block": convertIrToBlockChain(node)
-					}
+					}})
 				}
 			]
 		}
