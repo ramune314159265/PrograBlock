@@ -55,10 +55,14 @@ converters.forEach((c) => {
 export const convertAstToIr = (node) => {
 	const converter = toIrConverters[node?.type];
 	if (!converter) {
-		return node;
+		return null;
 	}
 	return converter(node);
 };
+
+export const convertAstsToIr = (node) => {
+	return (node?.map?.(convertAstToIr) ?? []).filter(i => i?.type)
+}
 
 export const convertJavaScriptToIr = (code) => {
 	const ast = parse(code, {

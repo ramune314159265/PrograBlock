@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { convertAstToIr, convertIrToAst } from "..";
+import { convertAstsToIr, convertAstToIr, convertIrToAst } from "..";
 
 export const switchCaseConverter = {
 	toIrs: {
@@ -7,7 +7,7 @@ export const switchCaseConverter = {
 			return {
 				type: "switch_case",
 				condition: convertAstToIr(node.test),
-				content: node.consequent.map(convertAstToIr),
+				content: convertAstsToIr(node.consequent),
 				uid: node?.uid ?? nanoid()
 			};
 		},

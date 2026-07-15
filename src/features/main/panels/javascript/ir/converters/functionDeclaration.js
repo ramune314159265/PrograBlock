@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { convertAstToIr, convertIrToAst } from "..";
+import { convertAstsToIr, convertIrToAst } from "..";
 
 export const functionDeclarationConverter = {
 	toIrs: {
@@ -8,7 +8,7 @@ export const functionDeclarationConverter = {
 				type: "function_declaration",
 				name: node?.id.name,
 				parameters: node.params.map((p) => p.name),
-				content: node.body.body.map(convertAstToIr),
+				content: convertAstsToIr(node.body.body),
 				uid: node?.uid ?? nanoid()
 			};
 		},

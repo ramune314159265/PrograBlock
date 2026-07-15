@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { convertAstToIr, convertIrToAst } from "..";
+import { convertAstsToIr, convertAstToIr, convertIrToAst } from "..";
 
 export const ifStatementConverter = {
 	toIrs: {
@@ -7,8 +7,8 @@ export const ifStatementConverter = {
 			return {
 				type: "if_statement",
 				condition: convertAstToIr(node.test),
-				content: node.consequent.body?.map(convertAstToIr),
-				alternative: node.alternate?.body?.map?.(convertAstToIr),
+				content: convertAstsToIr(node.consequent?.body),
+				alternative: convertAstsToIr(node.alternate?.body),
 				uid: node?.uid ?? nanoid()
 			};
 		},

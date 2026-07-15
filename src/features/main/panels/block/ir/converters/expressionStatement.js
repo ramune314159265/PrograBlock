@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { convertBlockToIr, convertIrToBlock } from "..";
+import { convertBlockToIr, convertIrToBlock, filterInputs } from "..";
 
 export const expressionStatementConverter = {
 	toIrs: {
@@ -16,11 +16,11 @@ export const expressionStatementConverter = {
 			return {
 				type: "expression_statement",
 				id: node.uid,
-				inputs: {
+				inputs: filterInputs({
 					content: {
 						block: convertIrToBlock(node.content),
 					},
-				},
+				}),
 			};
 		},
 	},

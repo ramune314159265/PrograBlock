@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { convertAstToIr, convertIrToAst } from "..";
+import { convertAstsToIr, convertAstToIr, convertIrToAst } from "..";
 
 export const switchStatementConverter = {
 	toIrs: {
@@ -7,7 +7,7 @@ export const switchStatementConverter = {
 			return {
 				type: "switch_statement",
 				discriminant: convertAstToIr(node.discriminant),
-				cases: node.cases.map(convertAstToIr),
+				cases: convertAstsToIr(node.cases),
 				uid: node?.uid ?? nanoid()
 			};
 		},

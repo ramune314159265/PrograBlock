@@ -77,14 +77,14 @@ export const convertBlocklyToIr = (data) => {
 export const convertIrToBlock = (node) => {
 	const converter = toBlockConverters[node?.type];
 	if (!converter) {
-		return node;
+		return {};
 	}
 	const block = converter(node);
 	return block;
 };
 
 export const convertIrToBlockChain = (node) => {
-	const arrayConverted = node?.map?.(convertIrToBlock) ?? [];
+	const arrayConverted = (node?.map?.(convertIrToBlock) ?? []).filter(b => b?.type);
 	return arrayToObjectChain(arrayConverted, ["next", "block"]);
 };
 
