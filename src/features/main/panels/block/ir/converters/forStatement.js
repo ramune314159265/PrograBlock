@@ -1,33 +1,41 @@
 import { nanoid } from "nanoid";
 import { convertBlockChainToIr, convertBlockToIr, convertIrToBlock, convertIrToBlockChain, filterInputs } from "..";
 
-export const ifStatementConverter = {
+export const forStatementConverter = {
 	toIrs: {
-		if_statement: (node) => {
+		for_statement: (node) => {
 			return {
-				type: "if_statement",
+				type: "for_statement",
+				variable: node.fields?.variable,
+				init: convertBlockToIr(node.inputs?.init?.block),
 				condition: convertBlockToIr(node.inputs?.condition?.block),
+				update: convertBlockToIr(node.inputs?.update?.block),
 				content: convertBlockChainToIr(node.inputs?.content?.block),
-				alternative: convertBlockChainToIr(node.inputs?.alternative?.block),
 				uid: node?.uid ?? nanoid(),
 			};
 		},
 	},
 	toBlocks: {
-		if_statement: (node) => {
+		for_statement: (node) => {
 			return {
-				type: "if_statement",
+				type: "for_statement",
 				id: node.uid,
+				fields: {
+					variable: node.variable
+				},
 				inputs: filterInputs({
+					init: {
+						block: convertIrToBlock(node.init),
+					},
 					condition: {
 						block: convertIrToBlock(node.condition),
 					},
+					update: {
+						block: convertIrToBlock(node.update),
+					},
 					content: {
 						block: convertIrToBlockChain(node.content),
-					},
-					alternative: {
-						block: convertIrToBlockChain(node.alternative),
-					},
+					}
 				}),
 			};
 		},

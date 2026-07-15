@@ -7,6 +7,7 @@ import { callExpressionConverter } from "./converters/callExpression";
 import { conditionalExpressionConverter } from "./converters/conditionalExpression";
 import { emptyConverter } from "./converters/empty";
 import { expressionStatementConverter } from "./converters/expressionStatement";
+import { forStatementConverter } from './converters/forStatemenet';
 import { functionDeclarationConverter } from "./converters/functionDeclaration";
 import { identifierConverter } from "./converters/identifier";
 import { ifStatementConverter } from "./converters/ifStatement";
@@ -28,6 +29,7 @@ const converters = [
 	callExpressionConverter,
 	conditionalExpressionConverter,
 	expressionStatementConverter,
+	forStatementConverter,
 	functionDeclarationConverter,
 	identifierConverter,
 	ifStatementConverter,

@@ -21,6 +21,7 @@ export const JavaScript = () => {
 
 		setJavaScriptContent(c)
 		const ir = convertJavaScriptToIr(c);
+		console.log({ir})
 		setIr(ir);
 		const ast = convertIrToAstTree(ir);
 		lastDataRef.current = ast;

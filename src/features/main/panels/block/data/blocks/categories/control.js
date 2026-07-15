@@ -76,6 +76,48 @@ export const control = {
 					},
 				},
 			}
+		}, {
+			"type": "for_statement",
+			"tooltip": "変数を作り、条件に合う限りループします",
+			"helpUrl": "",
+			"message0": "ループ変数 %1 %2 (初期値 %3 )を定義し、 %4 の限りループする %5 %6 ループ変数の更新処理 %7 %8",
+			"args0": [
+				{
+					"type": "field_input",
+					"name": "variable",
+					"text": "回数"
+				},
+				{
+					"type": "input_dummy",
+					"name": "d1"
+				},
+				{
+					"type": "input_value",
+					"name": "init"
+				},
+				{
+					"type": "input_value",
+					"name": "condition"
+				},
+				{
+					"type": "input_dummy",
+					"name": "d2"
+				},
+				{
+					"type": "input_statement",
+					"name": "content"
+				},
+				{
+					"type": "input_value",
+					"name": "update"
+				},
+				{
+					"type": "input_end_row",
+					"name": "d3"
+				}
+			],
+			"previousStatement": null,
+			"nextStatement": null,
 		},
 		{
 			type: "switch_case",
