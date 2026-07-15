@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { Layout, Model } from "flexlayout-react";
+import { PanelErrorBoundary } from './components/PanelErrorBoundary';
 import { panels } from "./panels";
 import './styles/flex_layout.css';
 
@@ -67,7 +68,11 @@ export const MainPage = () => {
             return <div>不明なコンポーネント</div>
         }
 
-        return <data.component></data.component>
+        return (
+            <PanelErrorBoundary>
+                <data.component></data.component>
+            </PanelErrorBoundary>
+        )
     }
     const renderTabHandle = (node, renderValues) => {
         const id = node.getComponent()
