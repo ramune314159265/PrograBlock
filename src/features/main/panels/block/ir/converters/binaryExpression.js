@@ -1,4 +1,4 @@
-import { convertBlockToIr, convertIrToBlock } from "..";
+import { convertBlockToIr, convertIrToBlock, filterInputs } from "..";
 
 const groups = {
 	equal_expression: ["equal", "not_equal"],
@@ -48,14 +48,14 @@ export const binaryExpressionConverter = {
 					fields: {
 						type: node.type,
 					},
-					inputs: {
+					inputs: filterInputs({
 						left: {
 							block: convertIrToBlock(node.left),
 						},
 						right: {
 							block: convertIrToBlock(node.right),
 						},
-					},
+					}),
 				};
 			}
 		})

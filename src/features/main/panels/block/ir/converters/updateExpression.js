@@ -1,4 +1,4 @@
-import { convertBlockToIr, convertIrToBlock } from "..";
+import { convertBlockToIr, convertIrToBlock, filterInputs } from "..";
 
 const groups = {
 	update_expression: ["increment", "decrement"],
@@ -31,11 +31,11 @@ export const updateExpressionConverter = {
 					fields: {
 						type: node.type,
 					},
-					inputs: {
+					inputs: filterInputs({
 						content: {
 							block: convertIrToBlock(node.content),
 						},
-					},
+					}),
 				};
 			}
 		})

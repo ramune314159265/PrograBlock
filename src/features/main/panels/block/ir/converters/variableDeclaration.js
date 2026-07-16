@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { convertBlockToIr, convertIrToBlock } from "..";
+import { convertBlockToIr, convertIrToBlock, filterInputs } from "..";
 
 export const variableDeclarationConverter = {
 	toIrs: {
@@ -22,11 +22,11 @@ export const variableDeclarationConverter = {
 					variableType: node.variableType,
 					name: node.name,
 				},
-				inputs: {
+				inputs:  filterInputs({
 					value: {
 						block: convertIrToBlock(node.value),
 					},
-				},
+				}),
 			};
 		},
 	},
