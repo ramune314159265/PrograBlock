@@ -68,6 +68,37 @@ export const variables = {
 					},
 				},
 			}
+		}, {
+			"type": "update_expression",
+			"tooltip": "変数の数値を増やしたり減らしたりします",
+			"helpUrl": "",
+			"message0": "%1 の値を 1 %2 %3",
+			"args0": [
+				{
+					"type": "input_value",
+					"name": "content"
+				},
+				{
+					"type": "field_dropdown",
+					"name": "type",
+					"options": [
+						[
+							"増やす",
+							"increment"
+						],
+						[
+							"減らす",
+							"decrement"
+						]
+					]
+				},
+				{
+					"type": "input_dummy",
+					"name": "d1"
+				}
+			],
+			output: null,
+			extensions: ['expression_auto_wrap'],
 		},
 		{
 			type: "identifier",

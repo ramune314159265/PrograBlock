@@ -1,34 +1,17 @@
 import { convertBlockToIr, convertIrToBlock } from "..";
 
 const groups = {
-	equal_expression: ["equal", "not_equal"],
-	comparison_expression: [
-		"greater_than",
-		"greater_than_or_equal",
-		"less_than",
-		"less_than_or_equal",
-	],
-	arithmetic_expression: [
-		"addition",
-		"subtraction",
-		"multiplication",
-		"division",
-		"exponentiation",
-	],
-	remainder_expression: [
-		"remainder"
-	]
+	update_expression: ["increment", "decrement"],
 };
 
-export const binaryExpressionConverter = {
+export const updateExpressionConverter = {
 	toIrs: (() => {
 		const converters = {}
 		Object.keys(groups).forEach(t => {
 			converters[t] = (node) => {
 				return {
 					type: node.fields.type,
-					left: convertBlockToIr(node.inputs?.left?.block),
-					right: convertBlockToIr(node.inputs?.right?.block),
+					content: convertBlockToIr(node.inputs?.content?.block),
 					uid: node?.id ?? nanoid(),
 				}
 			};
@@ -49,11 +32,8 @@ export const binaryExpressionConverter = {
 						type: node.type,
 					},
 					inputs: {
-						left: {
-							block: convertIrToBlock(node.left),
-						},
-						right: {
-							block: convertIrToBlock(node.right),
+						content: {
+							block: convertIrToBlock(node.content),
 						},
 					},
 				};

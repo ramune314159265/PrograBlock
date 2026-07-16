@@ -17,6 +17,7 @@ import { literalConverter } from "./converters/literal";
 import { returnStatementConverter } from "./converters/returnStatement";
 import { switchCaseConverter } from "./converters/switchCase";
 import { switchStatementConverter } from "./converters/switchStatement";
+import { updateExpressionConverter } from './converters/updateExpression';
 import { variableDeclarationConverter } from "./converters/variableDeclaration";
 
 const converters = [
@@ -35,6 +36,7 @@ const converters = [
 	returnStatementConverter,
 	switchCaseConverter,
 	switchStatementConverter,
+	updateExpressionConverter,
 	variableDeclarationConverter,
 ];
 

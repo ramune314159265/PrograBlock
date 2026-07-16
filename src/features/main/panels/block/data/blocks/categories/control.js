@@ -20,7 +20,7 @@ export const control = {
 			type: "if_statement",
 			tooltip: "条件がtrueの場合、中を実行します",
 			helpUrl: "",
-			message0: "もし %1 なら %2 %3",
+			message0: "もし %1 が真なら %2 %3",
 			args0: [
 				{
 					type: "input_value",

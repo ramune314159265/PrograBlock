@@ -78,10 +78,31 @@ export const operators = {
 					options: [
 						["+", "addition"],
 						["-", "subtraction"],
-						["*", "multiplication"],
-						["/", "divion"],
-						["**", "exponentiation"],
+						["×", "multiplication"],
+						["÷", "division"],
+						["^", "exponentiation"],
 					],
+				},
+				{
+					type: "input_value",
+					name: "right",
+				},
+				{
+					type: "input_end_row",
+					name: "d1",
+				},
+			],
+			output: null,
+		},
+		{
+			type: "remainder_expression",
+			tooltip: "割り算のあまりを求めます",
+			helpUrl: "",
+			message0: "%1 ÷ %2 のあまり %3",
+			args0: [
+				{
+					type: "input_value",
+					name: "left",
 				},
 				{
 					type: "input_value",
