@@ -114,6 +114,5 @@ export const settingPageItems = {
 export const settingPages = [
 	settingPageItems.appearance,
 	settingPageItems.command_platte,
-	settingPageItems.test,
 	settingPageItems.about
 ]
