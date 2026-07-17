@@ -1,4 +1,4 @@
-import { HiCodeBracket, HiCommandLine, HiInformationCircle, HiOutlineCodeBracket, HiOutlineCommandLine, HiOutlineInformationCircle, HiOutlinePaintBrush, HiPaintBrush } from 'react-icons/hi2'
+import { HiCommandLine, HiInformationCircle, HiOutlineCommandLine, HiOutlineInformationCircle, HiOutlinePaintBrush, HiPaintBrush } from 'react-icons/hi2'
 import { appInfo } from './appInfo'
 
 export const settingItems = {
@@ -30,57 +30,6 @@ export const settingItems = {
 		description: 'コマンドパレットを起動するキーを指定できます',
 		defaultValue: ['Control', '/'],
 		requireRestart: false
-	},
-	'test_check': {
-		id: 'test_check',
-		type: 'checkbox',
-		name: 'テストチェックボックス',
-		description: 'チェックボックスのテスト',
-		defaultValue: false,
-		requireRestart: false
-	},
-	'test_select': {
-		id: 'test_select',
-		type: 'select',
-		name: 'テストセレクトボックス',
-		description: 'セレクトボックスのテスト',
-		options: {
-			'one': 'ひとつめ',
-			'two': 'ふたつめ',
-			'three': 'みっつめ'
-		},
-		defaultValue: 'two',
-		requireRestart: false
-	},
-	'test_number': {
-		id: 'test_number',
-		type: 'number',
-		name: 'テスト数字',
-		description: '数字のテスト',
-		max: 100,
-		min: 0,
-		step: 1,
-		defaultValue: 10,
-		requireRestart: false
-	},
-	'test_slider': {
-		id: 'test_slider',
-		type: 'slider',
-		name: 'テストスライダー',
-		description: 'スライダーのテスト',
-		max: 100,
-		min: 0,
-		step: 1,
-		defaultValue: 10,
-		requireRestart: false
-	},
-	'test_color': {
-		id: 'test_color',
-		type: 'color',
-		name: 'テストカラーピッカー',
-		description: 'カラーピッカーのテスト',
-		defaultValue: '#ffffff',
-		requireRestart: false
 	}
 }
 
@@ -98,36 +47,6 @@ export const settingPageItems = {
 				items: [
 					settingItems.theme_mode,
 					settingItems.theme_color
-				]
-			}
-		]
-	},
-	'test': {
-		id: 'test',
-		name: 'テスト',
-		icon: HiOutlineCodeBracket,
-		iconSelected: HiCodeBracket,
-		hidden: !appInfo.isDev,
-		items: [
-			{
-				type: 'group',
-				name: 'テストグループ',
-				items: [
-					settingItems.test_check,
-					settingItems.test_number,
-					settingItems.test_select,
-					settingItems.test_slider,
-					settingItems.test_color
-				]
-			}, {
-				type: 'group',
-				name: 'テストグループ',
-				items: [
-					settingItems.test_check,
-					settingItems.test_number,
-					settingItems.test_select,
-					settingItems.test_slider,
-					settingItems.test_color
 				]
 			}
 		]
