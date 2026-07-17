@@ -21,7 +21,7 @@ export default defineConfig({
     generateLicenses(),
     VitePWA({
       strategies: 'injectManifest',
-      filename: 'coi-serviceworker.js',
+      disable: true,
       injectManifest: {
         maximumFileSizeToCacheInBytes: 10000000
       },
