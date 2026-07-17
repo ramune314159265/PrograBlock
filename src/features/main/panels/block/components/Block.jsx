@@ -57,7 +57,7 @@ export const Block = () => {
 			sounds: false,
 			trashcan: false,
 			modalInputs: false,
-			media: '/scratch/blocks-media/',
+			media: './scratch/blocks-media/',
 			theme: new ScratchBlocks.Theme('default', colorModes.default),
 			scratchTheme: ScratchBlocks.ScratchBlocksTheme.CAT_BLOCKS
 		});
