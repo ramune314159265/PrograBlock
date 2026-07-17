@@ -21,6 +21,10 @@ export default defineConfig({
     generateLicenses(),
     VitePWA({
       strategies: 'injectManifest',
+      filename: 'coi-serviceworker.js',
+      injectManifest: {
+        maximumFileSizeToCacheInBytes: 10000000
+      },
       manifest: {
         name: 'PrograBlock',
         description: 'コード(JavaScript)とブロックを変換しながらプログラミングが出来るツール',
